@@ -81,7 +81,7 @@ def prepare_data(csv_file):
 result = prepare_data('emails.csv')
 print(result.text[0])
 
-result.to_csv('processed emails.csv', encoding='utf-8', index = False)
+result.to_csv('processed_emails.csv', encoding='utf-8', index = False)
 
 
 """
