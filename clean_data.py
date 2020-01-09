@@ -30,7 +30,7 @@ def prepare_data(csv_file):
     count = 0
 
     # Loops through each message
-    for message in range(numb_mails-5000): # Remove '-5000' after debugging
+    for message in range(numb_mails): # Remove '-5000' after debugging
         # make message lower case
         text = data.text[message].lower()
 
