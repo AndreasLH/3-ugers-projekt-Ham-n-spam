@@ -4,13 +4,15 @@
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv('emails.csv')
-
+df = pd.read_csv('processed_emails.csv')
+#url = 'https://github.com/AndreasLH/3-ugers-projekt-Ham-n-spam/blob/master/emails.csv'
+#df = pd.read_csv(url)
 x = df.text
 y = df.spam
 
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(x, y, random_state=1)
+X_train, X_test, y_train, y_test = train_test_split(x, y, random_state = 1)
+print('shape of train and test matrix')
 print(X_train.shape)
 print(X_test.shape)
 print(y_train.shape)
@@ -34,10 +36,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 #dette er bag of words!
 vect = TfidfVectorizer()
 X_train_dtm = vect.fit_transform(X_train)
-
+print('feature matrix TD-IDF sparse matrix')
 print(X_train_dtm.shape)
 X_test_dtm = vect.transform(X_test)
-print(X_test_dtm.shape)
+#print(X_test_dtm.shape)
 
 #make model
 from sklearn.naive_bayes import MultinomialNB
@@ -48,9 +50,11 @@ y_pred_class = nb.predict(X_test_dtm)
 from sklearn import metrics
 #accuracy
 acc = metrics.accuracy_score(y_test, y_pred_class)
+print('accuracy')
 print(acc)
 #confusion matrix
 conf_mat = metrics.confusion_matrix(y_test, y_pred_class)
+print('confusion matrix')
 print(conf_mat)
 #confusion matrix
 # format [true neg, false pos]
@@ -59,8 +63,10 @@ print(conf_mat)
 
 
 #false positive messages
+print('false positive messages')
 print(X_test[y_pred_class > y_test])
 #false negative messages
+print('false negative messages i.e. spam emails wrongly classified as ham emails (not spam) ')
 print(X_test[y_pred_class < y_test])
 
 #naive bayes er ikke så præcis når den siger at det med 100% er spam, det er bare udregnet
@@ -68,7 +74,7 @@ y_pred_prob = nb.predict_proba(X_test_dtm)[:, 1]
 print(y_pred_prob)
 #area under curve
 AUC = metrics.roc_auc_score(y_test, y_pred_prob)
-print(AUC)
+print('area under curve', AUC)
 
 
 """
