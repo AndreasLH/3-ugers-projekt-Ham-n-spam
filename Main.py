@@ -207,6 +207,3 @@ plt.plot(range(1,10),error,color = '#cc338b',linestyle = 'solid',
 plt.title('Error Rate K value')
 plt.xlabel('K Value')
 plt.ylabel('Mean Error')
-
-
-
