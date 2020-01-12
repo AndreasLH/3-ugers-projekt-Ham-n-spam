@@ -30,7 +30,7 @@ TFIDF_max_features = 3            # None or int
 KNN_k = 3 
 
 # Change which model to run (GaussNB = 1 and KNN = 0)
-model = 1
+model = 0
 
 # Number of times test should be maken (with these parameters)
 iterations = 5
@@ -104,15 +104,22 @@ def gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test):
 
 def KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test):
     """ Predict classes with K nearest neighbor """
-    #The number of neighbors are defined aka the K value 
+    #The number of neighbors are defined aka the K value     
     KNN = KNeighborsClassifier(n_neighbors = KNN_k)
+    
     #The data is trained
     KNN.fit(X_train_dtm,y_train)
     #Predictions is used
+    start_time = time()
+    
     y_pred_class = KNN.predict(X_test_dtm)
+    
+    end_time = time()
+    test_time = end_time - start_time
+    
     y_true_class = y_test 
     
-    return y_pred_class, y_true_class 
+    return y_pred_class, y_true_class, test_time
 
 
 # Get data (features and targets) and store as Pandas series (1D-array)
@@ -145,7 +152,7 @@ for iteration in range(iterations):
         y_pred_class, y_true_class, train_time, test_time = gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test)
         
     else:
-        y_pred_class, y_true_class = KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test)
+        y_pred_class, y_true_class, test_time = KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test)
     
     # Compute accuracy (and show)
     print("Iteration: {}".format(iteration+1)) 
@@ -157,7 +164,11 @@ for iteration in range(iterations):
     print("Accuracy:  {:.4f}".format(accuracy))
     
     # Show runtime 
-    print("Runtime:   Training ({:.1f} s.) Testing ({:.1f} s.)".format(train_time, test_time))
+    if model == 1:
+        print("Runtime:   Training ({:.1f} s.) Testing ({:.1f} s.)".format(train_time, test_time))
+    
+    else:
+        print("Runtime:   Testing ({:.1f} s.)".format(test_time))
     
     # Show features
     print("Feature vocabulary:")
@@ -193,8 +204,6 @@ Spørgsmål:
     1. Hvorfor fanden klarer den sig bedre uden special token substitution?
        Der er forhåbentlig ikke et eller andet build in lort i TFIDFVectorizer
        der tager sig af numre.
-
-
 """
 
 
