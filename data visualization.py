@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 plt.style.use('seaborn')
 
-df = pd.read_csv('processed_emails.csv')
+df = pd.read_csv('emails.csv')
 print(f'consists of {df.shape[0]} rows and {df.shape[1]} columns')
 print(df.head())
 
