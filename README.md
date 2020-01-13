@@ -9,4 +9,5 @@ I opgaven har vi indtil videre kun brugt Naive Bayes i Gauss versionen (kontinue
 4.	https://sebastianraschka.com/Articles/2014_naive_bayes_1.html (generel gennemgang af Naive Bayes ift. Gauss, multinomial og bernoulli)
 5.	https://towardsdatascience.com/multinomial-naive-bayes-classifier-for-text-analysis-python-8dd6825ece67 (kode eksempel til multinomial – dog virker det som om det vil være bedst at arbejde videre på kode eksempålet til Gauss hvis denne type implementering skulle forettages)
 
-
+## Dataset
+https://www.kaggle.com/karthickveerakumar/spam-filter/version/1
