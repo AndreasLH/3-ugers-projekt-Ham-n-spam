@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Program Describtion:
+""" Program Description:
     A program created to be able to test and export results (data) of
     different ML-algortims under varying circumstances (changing parameters)
 
@@ -22,15 +22,15 @@ filename = 'processed_emails.csv'
 # Change parameters (split_dataset, tfidfVectorizer and KNN)
 SD_random_state = None            # None or int
 SD_shuffle = True
-SD_train_size = 3000               # None, int or float
-SD_test_size = 2000                # None, int or float
+SD_train_size = 300               # None, int or float
+SD_test_size = 200                # None, int or float
 
 TFIDF_max_features = 100           # None or int
 
 KNN_k = 3
 
 # Change which model to run (GaussNB = 1 and KNN = 0)
-model = 1
+model = 0
 
 # Number of times test should be maken (with these parameters)
 iterations = 5
@@ -75,9 +75,11 @@ def tfidf(X_train, X_test, TFIDF_max_features):
     vocabulary = vect.get_feature_names()
 
     a = pd.DataFrame(X_train_dtm, columns=vect.get_feature_names())
-    b = pd.DataFrame(X_train_dtm, columns=vect.get_feature_names())
+    b = pd.DataFrame(X_test_dtm, columns=vect.get_feature_names())
 
     return X_train_dtm, X_test_dtm, vocabulary
+
+
 
 def gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test):
     """ Predict classes with gaussian Naive Bayes """
@@ -107,17 +109,17 @@ def gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test):
 def KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test):
     """ Predict classes with K nearest neighbor """
     # Create KNN-model (general)
-    KNN = KNeighborsClassifier(n_neighbors = KNN_k, algorithm = 'brute')
+    KNN = KNeighborsClassifier(n_neighbors = KNN_k, algorithm = 'brute', n_jobs = -1)
 
     # Fit model to our training data
     KNN.fit(X_train_dtm,y_train)
 
     # Predict classes for test-documents (using euclidian distance)
-    start_time = time.perf_counter()
+    start_time = time()
 
     y_pred_class = KNN.predict(X_test_dtm)
 
-    end_time = time.perf_counter()
+    end_time = time()
     test_time = end_time - start_time
 
     y_true_class = y_test
