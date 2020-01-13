@@ -17,7 +17,7 @@
 ###############################################################################
 #                      -----  Mission Control  -----                          #
 ###############################################################################
-filename = 'processed_emails_v2.csv'
+filename = 'processed_emails.csv'
 
 # Change parameters (split_dataset, tfidfVectorizer and KNN)
 SD_random_state = None            # None or int
@@ -74,8 +74,10 @@ def tfidf(X_train, X_test, TFIDF_max_features):
     # Store vocabulary (especially important if max_features != None)
     vocabulary = vect.get_feature_names()
 
-    return X_train_dtm, X_test_dtm, vocabulary
+    a = pd.DataFrame(X_train_dtm, columns=vect.get_feature_names())
+    b = pd.DataFrame(X_train_dtm, columns=vect.get_feature_names())
 
+    return X_train_dtm, X_test_dtm, vocabulary
 
 def gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test):
     """ Predict classes with gaussian Naive Bayes """
