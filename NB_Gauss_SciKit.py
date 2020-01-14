@@ -38,6 +38,9 @@ X_test_dtm = vect.transform(X_test)
 X_train_dtm = X_train_dtm.toarray()
 X_test_dtm = X_test_dtm.toarray()
 
+import numpy as np
+print(np.shape(X_test_dtm))
+
 # Create ML-model (NB Gauss) and fit to training-set (calculate pobabilities)
 gnb = GaussianNB()
 gnb.fit(X_train_dtm, y_train)
@@ -61,12 +64,14 @@ print(X_test[y_pred_class > y_true_class])
 print(X_test[y_pred_class < y_true_class])
 
 
-#naive bayes er ikke så præcis når den siger at det med 100% er spam, det er bare udregnet
-y_pred_prob = gnb.predict_proba(X_test_dtm)[:, 1]
-print(y_pred_prob)
-#area under curve
-AUC = roc_auc_score(y_true_class, y_pred_prob)
-print(AUC)
+# =============================================================================
+# #naive bayes er ikke så præcis når den siger at det med 100% er spam, det er bare udregnet
+# y_pred_prob = gnb.predict_proba(X_test_dtm)[:, 1]
+# print(y_pred_prob)
+# #area under curve
+# AUC = roc_auc_score(y_true_class, y_pred_prob)
+# print(AUC)
+# =============================================================================
 
 
 # Debugging
