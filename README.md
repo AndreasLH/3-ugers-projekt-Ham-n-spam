@@ -24,6 +24,7 @@ Konstante parametere i datatransformation:
 5.	Tag stammen af alle tokens (stemming)
 
 Overblik over datasæt versioner:
+
 Version 1: Fjern stop-words (standard-sæt)
 
 Version 2: Fjern få enron-specifikke ting  - Fjern enron, ect, com og kaminski (kunne fjerne mange flere men giver ikke mening ifølge Mikkel)
