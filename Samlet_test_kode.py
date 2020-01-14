@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """ Program Describtion:
     A program created to be able to test and export results (data) of
     different ML-algortims under varying circumstances (changing parameters)
@@ -11,38 +12,6 @@
     5. https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html (TfidfVectorizer)
 
 """
-
-
-"""    This part is for changing variables while testing ML-algortihms     """
-
-###############################################################################
-###############################################################################
-#                      -----  Mission Control  -----                          #
-###############################################################################
-filename = 'processed_emails.csv'
-
-# Change parameters (split_dataset, tfidfVectorizer and KNN)
-SD_random_state = None            # None or int
-SD_shuffle = True
-SD_train_size = 3000               # None, int or float
-SD_test_size = 1             # None, int or float
-
-TFIDF_max_features = 100           # None or int
-
-KNN_k = 3
-
-# Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
-model = 0
-
-# Number of times test should be maken (with these parameters)
-iterations = 5
-
-###############################################################################
-###############################################################################
-
-
-""" This part contains the program (data transformation and ML-algorithms) """
-
 # Import general libraires
 import pandas as pd
 import numpy as np
@@ -62,12 +31,50 @@ from sklearn.neighbors import KNeighborsClassifier
 # Import modules for data representation
 from sklearn.metrics import confusion_matrix
 
+"""    This part is for changing variables while testing ML-algortihms     """
 
+###############################################################################
+###############################################################################
+#                      -----  Mission Control  -----                          #
+###############################################################################
+filename = 'processed_emails_v3.csv'
+
+train_size_vect = np.linspace(100, 4000, 20, dtype = 'int32')
+max_features_vect = np.linspace(100, 20_000, 20, dtype = 'int32')
+number_neighbors_vect = np.linspace(1, 40, 20, dtype = 'int32')
+
+#for i in range(len(train_size_vect)):
+
+
+# Change parameters (split_dataset, tfidfVectorizer and KNN)
+SD_random_state = 1            # None or int
+SD_shuffle = True
+SD_train_size = 0.9                # None, int or float
+SD_test_size = None             # None, int or float
+
+TFIDF_max_features = 5           # None or int
+
+KNN_k = 3
+
+# Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
+model = 0
+
+# Number of times test should be maken (with these parameters)
+iterations = 5
+
+
+
+
+###############################################################################
+###############################################################################
+
+
+""" This part contains the program (data transformation and ML-algorithms) """
 
 
 def tfidf(X_train, X_test, TFIDF_max_features):
     """ Create TF-IDF-matrix of training- and test-features """
-    vect = TfidfVectorizer(max_features = TFIDF_max_features, lowercase = False, analyzer = 'word')
+    vect = TfidfVectorizer(max_features = TFIDF_max_features, lowercase = False, analyzer = 'word', use_idf = True)
 
     X_train_dtm = vect.fit_transform(X_train)
     X_test_dtm = vect.transform(X_test)
@@ -80,7 +87,6 @@ def tfidf(X_train, X_test, TFIDF_max_features):
     vocabulary = vect.get_feature_names()
 
     return X_train_dtm, X_test_dtm, vocabulary
-
 
 def gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test):
     """ Predict classes with gaussian Naive Bayes """
@@ -130,7 +136,6 @@ def multinomialNB(X_train_dtm, y_train, X_test_dtm, y_test):
 
     return y_pred_class, y_true_class, train_time, test_time
 
-
 def KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test):
     """ Predict classes with K nearest neighbor """
     # Create KNN-model (general)
@@ -150,7 +155,6 @@ def KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test):
     y_true_class = y_test
 
     return y_pred_class, y_true_class, test_time
-
 
 # Get data (features and targets) and store as Pandas series (1D-array)
 df = pd.read_csv(filename)
