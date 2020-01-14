@@ -11,3 +11,7 @@ I opgaven har vi indtil videre kun brugt Naive Bayes i Gauss versionen (kontinue
 
 ## Dataset
 https://www.kaggle.com/karthickveerakumar/spam-filter/version/1
+
+
+## filer
+Hovedfil er `Samlet_test_kode.py`
