@@ -45,31 +45,26 @@ number_neighbors_vect = np.linspace(1, 40, 20, dtype = 'int32')
 
 output = np.zeros(len(train_size_vect))
 
+# Change parameters (split_dataset, tfidfVectorizer and KNN)
+SD_random_state = None            # None or int
+SD_shuffle = True
+SD_train_size = 0.8                # None, int or float
+SD_test_size = None             # None, int or float
+
+TFIDF_max_features = 100           # None or int
+
+KNN_k = 3
+
+# Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
+model = 2
+
+# Number of times test should be maken (with these parameters)
+iterations = 5
+###############################################################################
+###############################################################################
+
 for i in range(len(train_size_vect)):
     SD_train_size = train_size_vect[i]
-
-    # Change parameters (split_dataset, tfidfVectorizer and KNN)
-    SD_random_state = 1            # None or int
-    SD_shuffle = True
-    #SD_train_size = 0.8                # None, int or float
-    SD_test_size = None             # None, int or float
-
-    TFIDF_max_features = 100           # None or int
-
-    KNN_k = 3
-
-    # Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
-    model = 2
-
-    # Number of times test should be maken (with these parameters)
-    iterations = 5
-
-
-
-
-    ###############################################################################
-    ###############################################################################
-
 
     """ This part contains the program (data transformation and ML-algorithms) """
 
