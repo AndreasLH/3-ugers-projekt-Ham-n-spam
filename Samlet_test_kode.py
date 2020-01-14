@@ -37,9 +37,9 @@ from sklearn.metrics import confusion_matrix
 ###############################################################################
 #                      -----  Mission Control  -----                          #
 ###############################################################################
-filename = 'processed_emails_v3.csv'
+filename = 'processed_emails50.csv'
 
-train_size_vect = np.linspace(100, 4000, 10, dtype = 'int32')
+train_size_vect = np.linspace(100, 2500, 10, dtype = 'int32')
 max_features_vect = np.linspace(100, 20_000, 20, dtype = 'int32')
 number_neighbors_vect = np.linspace(1, 40, 20, dtype = 'int32')
 
@@ -54,7 +54,7 @@ for i in range(len(train_size_vect)):
     #SD_train_size = 0.8                # None, int or float
     SD_test_size = None             # None, int or float
 
-    TFIDF_max_features = 50           # None or int
+    TFIDF_max_features = 100           # None or int
 
     KNN_k = 3
 
@@ -76,7 +76,7 @@ for i in range(len(train_size_vect)):
 
     def tfidf(X_train, X_test, TFIDF_max_features):
         """ Create TF-IDF-matrix of training- and test-features """
-        vect = TfidfVectorizer(max_features = TFIDF_max_features, lowercase = False, analyzer = 'word', use_idf = False)
+        vect = TfidfVectorizer(max_features = TFIDF_max_features, lowercase = False, analyzer = 'word', use_idf = True)
 
         X_train_dtm = vect.fit_transform(X_train)
         X_test_dtm = vect.transform(X_test)
