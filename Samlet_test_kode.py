@@ -238,7 +238,11 @@ for i in range(len(train_size_vect)):
 
 import matplotlib.pyplot as plt
 
+confint = 1.96*np.sqrt(np.std(output)**2/(SD_train_size))
+
 plt.figure(dpi=600)
+plt.fill_between(train_size_vect,output-confint,output+confint,
+                 color = 'gray',alpha = 0.2)
 plt.plot(train_size_vect, output)
 plt.title('Accuracy as a function of train size')
 plt.xlabel('Train size (# emails)')

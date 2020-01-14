@@ -33,7 +33,7 @@ SD_test_size = 0.1             # None, int or float
 
 TFIDF_max_features = None           # None or int
 
-KNN_k = 3
+KNN_k = 4
 
 # Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
 model = 2
