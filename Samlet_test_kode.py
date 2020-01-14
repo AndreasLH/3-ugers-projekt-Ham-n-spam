@@ -39,204 +39,217 @@ from sklearn.metrics import confusion_matrix
 ###############################################################################
 filename = 'processed_emails_v3.csv'
 
-train_size_vect = np.linspace(100, 4000, 20, dtype = 'int32')
+train_size_vect = np.linspace(100, 4000, 10, dtype = 'int32')
 max_features_vect = np.linspace(100, 20_000, 20, dtype = 'int32')
 number_neighbors_vect = np.linspace(1, 40, 20, dtype = 'int32')
 
-#for i in range(len(train_size_vect)):
+output = np.zeros(len(train_size_vect))
 
+for i in range(len(train_size_vect)):
+    SD_train_size = train_size_vect[i]
 
-# Change parameters (split_dataset, tfidfVectorizer and KNN)
-SD_random_state = 1            # None or int
-SD_shuffle = True
-SD_train_size = 0.9                # None, int or float
-SD_test_size = None             # None, int or float
+    # Change parameters (split_dataset, tfidfVectorizer and KNN)
+    SD_random_state = 1            # None or int
+    SD_shuffle = True
+    #SD_train_size = 0.8                # None, int or float
+    SD_test_size = None             # None, int or float
 
-TFIDF_max_features = 5           # None or int
+    TFIDF_max_features = 50           # None or int
 
-KNN_k = 3
+    KNN_k = 3
 
-# Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
-model = 0
+    # Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
+    model = 2
 
-# Number of times test should be maken (with these parameters)
-iterations = 5
+    # Number of times test should be maken (with these parameters)
+    iterations = 5
 
 
 
 
-###############################################################################
-###############################################################################
+    ###############################################################################
+    ###############################################################################
 
 
-""" This part contains the program (data transformation and ML-algorithms) """
+    """ This part contains the program (data transformation and ML-algorithms) """
 
 
-def tfidf(X_train, X_test, TFIDF_max_features):
-    """ Create TF-IDF-matrix of training- and test-features """
-    vect = TfidfVectorizer(max_features = TFIDF_max_features, lowercase = False, analyzer = 'word', use_idf = True)
+    def tfidf(X_train, X_test, TFIDF_max_features):
+        """ Create TF-IDF-matrix of training- and test-features """
+        vect = TfidfVectorizer(max_features = TFIDF_max_features, lowercase = False, analyzer = 'word', use_idf = False)
 
-    X_train_dtm = vect.fit_transform(X_train)
-    X_test_dtm = vect.transform(X_test)
+        X_train_dtm = vect.fit_transform(X_train)
+        X_test_dtm = vect.transform(X_test)
 
-    # Convert sparse matrix to array (matrix)
-    X_train_dtm = X_train_dtm.toarray()
-    X_test_dtm = X_test_dtm.toarray()
+        # Convert sparse matrix to array (matrix)
+        X_train_dtm = X_train_dtm.toarray()
+        X_test_dtm = X_test_dtm.toarray()
 
-    # Store vocabulary (especially important if max_features != None)
-    vocabulary = vect.get_feature_names()
+        # Store vocabulary (especially important if max_features != None)
+        vocabulary = vect.get_feature_names()
 
-    return X_train_dtm, X_test_dtm, vocabulary
+        return X_train_dtm, X_test_dtm, vocabulary
 
-def gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test):
-    """ Predict classes with gaussian Naive Bayes """
-    # Create ML-model (NB Gauss) and fit to training-set (calculate pobabilities)
-    start_time = time()    # https://stackoverflow.com/a/1557584/12428216
+    def gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test):
+        """ Predict classes with gaussian Naive Bayes """
+        # Create ML-model (NB Gauss) and fit to training-set (calculate pobabilities)
+        start_time = time()    # https://stackoverflow.com/a/1557584/12428216
 
-    gnb = GaussianNB()
-    gnb.fit(X_train_dtm, y_train)
+        gnb = GaussianNB()
+        gnb.fit(X_train_dtm, y_train)
 
-    # Compute runtime (training)
-    end_time = time()
-    train_time = end_time - start_time
+        # Compute runtime (training)
+        end_time = time()
+        train_time = end_time - start_time
 
-    # Classification of test-set (emails)
-    start_time = time()
+        # Classification of test-set (emails)
+        start_time = time()
 
-    y_pred_class = gnb.predict(X_test_dtm)
-    y_true_class = y_test
+        y_pred_class = gnb.predict(X_test_dtm)
+        y_true_class = y_test
 
-    # Compute runtime (test)
-    end_time = time()
-    test_time = end_time - start_time
+        # Compute runtime (test)
+        end_time = time()
+        test_time = end_time - start_time
 
-    return y_pred_class, y_true_class, train_time, test_time
+        return y_pred_class, y_true_class, train_time, test_time
 
-def multinomialNB(X_train_dtm, y_train, X_test_dtm, y_test):
-    """ Predict classes with gaussian Naive Bayes """
-    # Create ML-model (NB Multinomial) and fit to training-set (calculate pobabilities)
-    start_time = time()    # https://stackoverflow.com/a/1557584/12428216
+    def multinomialNB(X_train_dtm, y_train, X_test_dtm, y_test):
+        """ Predict classes with gaussian Naive Bayes """
+        # Create ML-model (NB Multinomial) and fit to training-set (calculate pobabilities)
+        start_time = time()    # https://stackoverflow.com/a/1557584/12428216
 
-    mnb = MultinomialNB()
-    mnb.fit(X_train_dtm, y_train)
+        mnb = MultinomialNB()
+        mnb.fit(X_train_dtm, y_train)
 
-    # Compute runtime (training)
-    end_time = time()
-    train_time = end_time - start_time
+        # Compute runtime (training)
+        end_time = time()
+        train_time = end_time - start_time
 
-    # Classification of test-set (emails)
-    start_time = time()
+        # Classification of test-set (emails)
+        start_time = time()
 
-    y_pred_class = mnb.predict(X_test_dtm)
-    y_true_class = y_test
+        y_pred_class = mnb.predict(X_test_dtm)
+        y_true_class = y_test
 
-    # Compute runtime (test)
-    end_time = time()
-    test_time = end_time - start_time
+        # Compute runtime (test)
+        end_time = time()
+        test_time = end_time - start_time
 
-    return y_pred_class, y_true_class, train_time, test_time
+        return y_pred_class, y_true_class, train_time, test_time
 
-def KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test):
-    """ Predict classes with K nearest neighbor """
-    # Create KNN-model (general)
-    KNN = KNeighborsClassifier(n_neighbors = KNN_k, algorithm = 'brute', n_jobs = -1)
+    def KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test):
+        """ Predict classes with K nearest neighbor """
+        # Create KNN-model (general)
+        KNN = KNeighborsClassifier(n_neighbors = KNN_k, algorithm = 'brute', n_jobs = -1)
 
-    # Fit model to our training data
-    KNN.fit(X_train_dtm,y_train)
+        # Fit model to our training data
+        KNN.fit(X_train_dtm,y_train)
 
-    # Predict classes for test-documents (using euclidian distance)
-    start_time = time()
+        # Predict classes for test-documents (using euclidian distance)
+        start_time = time()
 
-    y_pred_class = KNN.predict(X_test_dtm)
+        y_pred_class = KNN.predict(X_test_dtm)
 
-    end_time = time()
-    test_time = end_time - start_time
+        end_time = time()
+        test_time = end_time - start_time
 
-    y_true_class = y_test
+        y_true_class = y_test
 
-    return y_pred_class, y_true_class, test_time
+        return y_pred_class, y_true_class, test_time
 
-# Get data (features and targets) and store as Pandas series (1D-array)
-df = pd.read_csv(filename)
+    # Get data (features and targets) and store as Pandas series (1D-array)
+    df = pd.read_csv(filename)
 
-x = df.text
-y = df.spam
+    x = df.text
+    y = df.spam
 
 
 
-debbuging_accuracy = np.array([]) # Remove after debbugning
+    debbuging_accuracy = np.array([]) # Remove after debbugning
 
-for iteration in range(iterations):
-    # Split data into training- and testset (SciKit)
-    kwargs = {
-# https://stackoverflow.com/questions/9539921/how-do-i-create-a-python-function-with-optional-arguments
-# https://realpython.com/python-kwargs-and-args/
-        'train_size': SD_train_size,
-        'test_size': SD_test_size,
-        'random_state': SD_random_state
-        }
+    for iteration in range(iterations):
+        # Split data into training- and testset (SciKit)
+        kwargs = {
+    # https://stackoverflow.com/questions/9539921/how-do-i-create-a-python-function-with-optional-arguments
+    # https://realpython.com/python-kwargs-and-args/
+            'train_size': SD_train_size,
+            'test_size': SD_test_size,
+            'random_state': SD_random_state
+            }
 
-    X_train, X_test, y_train, y_test = train_test_split(x, y, **kwargs)
+        X_train, X_test, y_train, y_test = train_test_split(x, y, **kwargs)
 
-    # Create TFIDF-matrix (custom function with SciKit)
+        # Create TFIDF-matrix (custom function with SciKit)
 
-    X_train_dtm, X_test_dtm, vocabulary = tfidf(X_train, X_test, TFIDF_max_features)
+        X_train_dtm, X_test_dtm, vocabulary = tfidf(X_train, X_test, TFIDF_max_features)
 
-    # Make prediction (with choosen model)
-    if model == 0:
-        y_pred_class, y_true_class, train_time, test_time = gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test)
+        # Make prediction (with choosen model)
+        if model == 0:
+            y_pred_class, y_true_class, train_time, test_time = gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test)
 
-    elif model == 1:
-        y_pred_class, y_true_class, train_time, test_time = gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test)
+        elif model == 1:
+            y_pred_class, y_true_class, train_time, test_time = gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test)
 
-    elif model == 2:
-        y_pred_class, y_true_class, test_time = KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test)
+        elif model == 2:
+            y_pred_class, y_true_class, test_time = KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test)
 
-    # Compute accuracy (and show)
-    print("Iteration: {}".format(iteration+1))
+        # Compute accuracy (and show)
+        print("Iteration: {}".format(iteration+1))
 
-    numb_test = np.size(y_pred_class)
-    numb_correct = np.size(y_pred_class[y_pred_class == y_true_class])
+        numb_test = np.size(y_pred_class)
+        numb_correct = np.size(y_pred_class[y_pred_class == y_true_class])
 
-    accuracy = numb_correct/numb_test
-    print("Accuracy:  {:.4f}".format(accuracy))
+        accuracy = numb_correct/numb_test
+        print("Accuracy:  {:.4f}".format(accuracy))
 
-    # Show runtime
-    if model == 1:
-        print("Runtime:   Training ({:.1f} s.) Testing ({:.1f} s.)".format(train_time, test_time))
+        # Show runtime
+        if model == 1:
+            print("Runtime:   Training ({:.1f} s.) Testing ({:.1f} s.)".format(train_time, test_time))
 
-    else:
-        print("Runtime:   Testing ({:.1f} s.)".format(test_time))
+        else:
+            print("Runtime:   Testing ({:.1f} s.)".format(test_time))
 
-    # Show features
-    if type(TFIDF_max_features) == int:
-        if TFIDF_max_features <= 15:
+        # Show features
+        if type(TFIDF_max_features) == int:
+            if TFIDF_max_features <= 15:
 
-            print("Feature vocabulary:")
+                print("Feature vocabulary:")
 
-            for word in range(np.size(vocabulary)):
-                print("\t{}. {}".format(word+1,vocabulary[word]))
+                for word in range(np.size(vocabulary)):
+                    print("\t{}. {}".format(word+1,vocabulary[word]))
 
-    else:
-            print("Feature vocabulary: Too many features!")
+        else:
+                print("Feature vocabulary: Too many features!")
 
-    # Create and show confussion matrix
-    conf_matrix = confusion_matrix(y_true_class, y_pred_class)
-    print("Confusion matrix:")
-    print(conf_matrix)
+        # Create and show confussion matrix
+        conf_matrix = confusion_matrix(y_true_class, y_pred_class)
+        print("Confusion matrix:")
+        print(conf_matrix)
 
-    print('\n')
+        print('\n')
 
-    # Ekstra statistisk (debugging)
-    debbuging_accuracy = np.append(debbuging_accuracy, accuracy)
+        # Ekstra statistisk (debugging)
+        debbuging_accuracy = np.append(debbuging_accuracy, accuracy)
 
-# Print debugging statistiker
-mean = np.mean(debbuging_accuracy)
+    # Print debugging statistiker
+    mean = np.mean(debbuging_accuracy)
 
-print("-------- Over all ----------")
-print("Mean: {:.4f}".format(mean))
+    print("-------- Over all ----------")
+    print("Mean: {:.4f}".format(mean))
 
+    output[i] = mean
 
+
+import matplotlib.pyplot as plt
+
+plt.figure(dpi=600)
+plt.plot(train_size_vect, output)
+plt.title('Accuracy as a function of train size')
+plt.xlabel('Train size (# emails)')
+plt.ylabel('Accuracy %')
+plt.savefig('plot')
+plt.show()
 
 
 
