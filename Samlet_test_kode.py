@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-""" Program Describtion:
+""" Program Description:
     A program created to be able to test and export results (data) of
     different ML-algortims under varying circumstances (changing parameters)
 
@@ -15,6 +15,7 @@
 # Import general libraires
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Import runtime libraries
 from time import time
@@ -24,10 +25,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import GaussianNB
 from sklearn.naive_bayes import MultinomialNB
-
 # Import SciKit module (for KKN)
 from sklearn.neighbors import KNeighborsClassifier
-
 # Import modules for data representation
 from sklearn.metrics import confusion_matrix
 
@@ -37,14 +36,15 @@ from sklearn.metrics import confusion_matrix
 ###############################################################################
 #                      -----  Mission Control  -----                          #
 ###############################################################################
-filename = 'processed_emails50.csv'
+filename = 'processed_emails.csv'
 
-train_size_vect = np.linspace(100, 2500, 10, dtype = 'int32')
-max_features_vect = np.linspace(100, 20_000, 20, dtype = 'int32')
-number_neighbors_vect = np.linspace(1, 40, 20, dtype = 'int32')
+n_samples = 10
+train_size_vect = np.linspace(100, 2000, n_samples, dtype = 'int32')
+max_features_vect = np.linspace(100, 20_000, n_samples, dtype = 'int32')
+number_neighbors_vect = np.linspace(1, 40, n_samples, dtype = 'int32')
 
-output = np.zeros(len(train_size_vect))
-confint = np.zeros(len(train_size_vect))
+output = np.zeros(n_samples)
+confint = np.zeros(n_samples)
 
 # Change parameters (split_dataset, tfidfVectorizer and KNN)
 SD_random_state = None            # None or int
@@ -52,19 +52,20 @@ SD_shuffle = True
 SD_train_size = 0.8                # None, int or float
 SD_test_size = None             # None, int or float
 
-TFIDF_max_features = 100           # None or int
+TFIDF_max_features = 500           # None or int
 
 KNN_k = 3
 
 # Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
-model = 2
+model = 0
 
 # Number of times test should be maken (with these parameters)
 iterations = 5
 ###############################################################################
 ###############################################################################
 
-for i in range(len(train_size_vect)):
+for i in range(n_samples):
+    #SD_train_size = train_size_vect[i]
     SD_train_size = train_size_vect[i]
 
     """ This part contains the program (data transformation and ML-algorithms) """
@@ -156,11 +157,8 @@ for i in range(len(train_size_vect)):
 
     # Get data (features and targets) and store as Pandas series (1D-array)
     df = pd.read_csv(filename)
-
     x = df.text
     y = df.spam
-
-
 
     debbuging_accuracy = np.array([]) # Remove after debbugning
 
@@ -235,19 +233,24 @@ for i in range(len(train_size_vect)):
     print("Mean: {:.4f}".format(mean))
 
     output[i] = mean
-    confint[i] = 1.96*np.sqrt((mean*(1-mean))/(SD_train_size))
+    #confint[i] = 1.96*np.sqrt((mean*(1-mean))/(SD_train_size))
+    #agresti
+    p_bar = (mean*SD_train_size+2) / (SD_train_size+4)
+    confint[i] = 1.96*np.sqrt((p_bar*(1-p_bar))/(SD_train_size+4))
 
 
-import matplotlib.pyplot as plt
-
+# =============================================================================
+# Plotting part
+# =============================================================================
 
 plt.figure(dpi=600)
-plt.fill_between(train_size_vect,output-confint,output+confint,
+plt.fill_between(train_size_vect, output-confint,output+confint,
                  color = 'gray',alpha = 0.2)
 plt.plot(train_size_vect, output)
 plt.title('Accuracy as a function of train size')
-plt.xlabel('Train size (# emails)')
+plt.xlabel('train size')
 plt.ylabel('Accuracy %')
+#plt.ylim(0.5, 1)
 plt.savefig('plot')
 plt.show()
 
