@@ -44,6 +44,7 @@ max_features_vect = np.linspace(100, 20_000, 20, dtype = 'int32')
 number_neighbors_vect = np.linspace(1, 40, 20, dtype = 'int32')
 
 output = np.zeros(len(train_size_vect))
+confint = np.zeros(len(train_size_vect))
 
 # Change parameters (split_dataset, tfidfVectorizer and KNN)
 SD_random_state = None            # None or int
@@ -234,11 +235,11 @@ for i in range(len(train_size_vect)):
     print("Mean: {:.4f}".format(mean))
 
     output[i] = mean
+    confint[i] = 1.96*np.sqrt((mean*(1-mean))/(SD_train_size))
 
 
 import matplotlib.pyplot as plt
 
-confint = 1.96*np.sqrt(np.std(output)**2/(SD_train_size))
 
 plt.figure(dpi=600)
 plt.fill_between(train_size_vect,output-confint,output+confint,
