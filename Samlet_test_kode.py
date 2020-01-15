@@ -44,7 +44,7 @@ max_features_vect = np.linspace(100, 20_000, 20, dtype = 'int32')
 number_neighbors_vect = np.linspace(1, 40, 20, dtype = 'int32')
 
 output = np.zeros(len(train_size_vect))
-
+confint = np.zeros(len(train_size_vect))
 # Change parameters (split_dataset, tfidfVectorizer and KNN)
 SD_random_state = None            # None or int
 SD_shuffle = True
@@ -56,7 +56,7 @@ TFIDF_max_features = 100           # None or int
 KNN_k = 3
 
 # Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
-model = 2
+model = 0
 
 # Number of times test should be maken (with these parameters)
 iterations = 5
@@ -159,8 +159,6 @@ for i in range(len(train_size_vect)):
     x = df.text
     y = df.spam
 
-
-
     debbuging_accuracy = np.array([]) # Remove after debbugning
 
     for iteration in range(iterations):
@@ -234,11 +232,11 @@ for i in range(len(train_size_vect)):
     print("Mean: {:.4f}".format(mean))
 
     output[i] = mean
-
-
+    
+    confint[i] = 1.96*np.sqrt(mean*(1-mean)/(SD_train_size)) 
+    
+    
 import matplotlib.pyplot as plt
-
-confint = 1.96*np.sqrt(np.std(output)**2/(SD_train_size))
 
 plt.figure(dpi=600)
 plt.fill_between(train_size_vect,output-confint,output+confint,
@@ -246,6 +244,7 @@ plt.fill_between(train_size_vect,output-confint,output+confint,
 plt.plot(train_size_vect, output)
 plt.title('Accuracy as a function of train size')
 plt.xlabel('Train size (# emails)')
+plt.ylim(0.7,1)
 plt.ylabel('Accuracy %')
 plt.savefig('plot')
 plt.show()
