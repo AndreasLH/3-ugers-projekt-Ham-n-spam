@@ -38,7 +38,7 @@ from sklearn.metrics import confusion_matrix
 ###############################################################################
 #                      -----  Mission Control  -----                          #
 ###############################################################################
-filename = 'processed_emails_v1.csv'
+filename = 'dataset/processed_emails_v1.csv'
 
 n_samples = 10
 train_size_vect = np.linspace(3, 4000, n_samples, dtype = 'int32')
