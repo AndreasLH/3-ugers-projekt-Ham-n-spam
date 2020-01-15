@@ -181,7 +181,7 @@ for i in range(n_samples):
             y_pred_class, y_true_class, train_time, test_time = gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test)
 
         elif model == 1:
-            y_pred_class, y_true_class, train_time, test_time = gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test)
+            y_pred_class, y_true_class, train_time, test_time = multinomialNB(X_train_dtm, y_train, X_test_dtm, y_test)
 
         elif model == 2:
             y_pred_class, y_true_class, test_time = KKN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test)
@@ -214,8 +214,14 @@ for i in range(n_samples):
         else:
                 print("Feature vocabulary: Too many features! to print")
 
-        # Create and show confussion matrix
+        # Create and show confusion matrix
         conf_matrix = confusion_matrix(y_true_class, y_pred_class)
+        #
+        #[true neg, false pos]
+        #[false neg, true pos]
+        #false negative er antallet af spam emails der bliver klassificeret som ikke spam. Det vil vi gerne have til at være så lille som muligt
+        #false pos er vigtigere at den er så lille som muligt, da det er ham der              bliver klassificeret som spam
+
         print("Confusion matrix:")
         print(conf_matrix)
 
