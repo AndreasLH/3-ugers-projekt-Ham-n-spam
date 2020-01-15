@@ -63,20 +63,21 @@ KNN_k = 3
 # Change which model to run (GaussNB = 0, MultinomialNB = 1, KNN = 2)
 
 model = 0
-# use tf idf or BOW
+# use tf idf = True or BOW
 tfidf_vec = True
 
 # Number of times test should be maken (with these parameters)
 iterations = 1
-#td-idf or bag of words (True = tdidf, False = Bag of words)
 
-#
 BOW_max_features = None              # None or int
 
 # Get data (features and targets) and store as Pandas series (1D-array)
 df = pd.read_csv(filename)
 x = df.text
 y = df.spam
+
+debugging_accuracy = np.array([]) # used to calcalu
+
 
 ###############################################################################
 ###############################################################################
@@ -182,7 +183,6 @@ if tfidf_vec:
 
         """ This part contains the program (data transformation and ML-algorithms) """
 
-        debbugging_accuracy = np.array([]) # used to calcalu
 
         for iteration in range(iterations):
             # Split data into training- and testset (SciKit)
@@ -252,10 +252,10 @@ if tfidf_vec:
             print('\n')
 
             # Ekstra statistisk (debugging)
-            debbugging_accuracy = np.append(debbugging_accuracy, accuracy)
+            debugging_accuracy = np.append(debugging_accuracy, accuracy)
 
         # Print debugging statistiker
-        mean = np.mean(debbugging_accuracy)
+        mean = np.mean(debugging_accuracy)
 
         print("-------- Over all ----------")
         print("Mean: {:.4f}".format(mean))
@@ -334,10 +334,10 @@ else:
             print('\n')
 
             # Ekstra statistisk (debugging)
-            debbuging_accuracy = np.append(debbuging_accuracy, accuracy)
+            debugging_accuracy = np.append(debugging_accuracy, accuracy)
 
         # Print debugging statistiker
-        mean = np.mean(debbuging_accuracy)
+        mean = np.mean(debugging_accuracy)
 
         print("-------- Over all ----------")
         print("Mean: {:.4f}".format(mean))
