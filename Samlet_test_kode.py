@@ -61,8 +61,7 @@ TFIDF_max_features = None       # None or int
 KNN_k = 3
 
 # Change which model to run (GaussNB = 0, MultinomialNB = 1, KNN = 2)
-# if tfidf_vec = True.
-# if tdidf = False, then (0 = Multinomial, 1= KNN )
+
 model = 0
 # use tf idf or BOW
 tfidf_vec = True
@@ -291,10 +290,10 @@ else:
             vocabulary = vect.get_feature_names()
 
             # Make prediction (with choosen model)
-            if model == 0:
+            if model == 1:
                 y_pred_class, y_true_class, train_time, test_time = multinomialNB(X_train_dtm, y_train, X_test_dtm, y_test)
 
-            elif model == 1:
+            elif model == 2:
                 y_pred_class, y_true_class, test_time = KNN(KNN_k, X_train_dtm, y_train, X_test_dtm, y_test)
 
             # Compute accuracy (and show)
