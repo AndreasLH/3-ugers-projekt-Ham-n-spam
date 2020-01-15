@@ -3,7 +3,6 @@
 """ Program Description:
     A program created to be able to test and export results (data) of
     different ML-algortims under varying circumstances (changing parameters)
-
     Based on the following sources:
     1. https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier (KNN)
     2. https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB (Gauss NB)
@@ -52,11 +51,11 @@ SD_shuffle = True
 SD_train_size = 0.8                # None, int or float
 SD_test_size = None             # None, int or float
 
-TFIDF_max_features = 500           # None or int
+TFIDF_max_features = 500       # None or int
 
 KNN_k = 3
 
-# Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
+# Change which model to run (GaussNB = 0, MultinomialNB = 1, KNN = 2)
 model = 0
 
 # Number of times test should be maken (with these parameters)
@@ -65,7 +64,6 @@ iterations = 5
 ###############################################################################
 
 for i in range(n_samples):
-    #SD_train_size = train_size_vect[i]
     SD_train_size = train_size_vect[i]
 
     """ This part contains the program (data transformation and ML-algorithms) """
@@ -160,7 +158,7 @@ for i in range(n_samples):
     x = df.text
     y = df.spam
 
-    debbuging_accuracy = np.array([]) # Remove after debbugning
+    debbugging_accuracy = np.array([]) # Remove after debbugning
 
     for iteration in range(iterations):
         # Split data into training- and testset (SciKit)
@@ -214,7 +212,7 @@ for i in range(n_samples):
                     print("\t{}. {}".format(word+1,vocabulary[word]))
 
         else:
-                print("Feature vocabulary: Too many features!")
+                print("Feature vocabulary: Too many features! to print")
 
         # Create and show confussion matrix
         conf_matrix = confusion_matrix(y_true_class, y_pred_class)
@@ -224,10 +222,10 @@ for i in range(n_samples):
         print('\n')
 
         # Ekstra statistisk (debugging)
-        debbuging_accuracy = np.append(debbuging_accuracy, accuracy)
+        debbugging_accuracy = np.append(debbugging_accuracy, accuracy)
 
     # Print debugging statistiker
-    mean = np.mean(debbuging_accuracy)
+    mean = np.mean(debbugging_accuracy)
 
     print("-------- Over all ----------")
     print("Mean: {:.4f}".format(mean))
@@ -243,7 +241,7 @@ for i in range(n_samples):
 # Plotting part
 # =============================================================================
 
-plt.figure(dpi=600)
+plt.figure()
 plt.fill_between(train_size_vect, output-confint,output+confint,
                  color = 'gray',alpha = 0.2)
 plt.plot(train_size_vect, output)
@@ -251,7 +249,7 @@ plt.title('Accuracy as a function of train size')
 plt.xlabel('train size')
 plt.ylabel('Accuracy %')
 #plt.ylim(0.5, 1)
-plt.savefig('plot')
+plt.savefig('plot', dpi = 600)
 plt.show()
 
 
