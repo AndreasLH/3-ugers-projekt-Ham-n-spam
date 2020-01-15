@@ -61,7 +61,6 @@ TFIDF_max_features = None       # None or int
 KNN_k = 3
 
 # Change which model to run (GaussNB = 0, MultinomialNB = 1, KNN = 2)
-
 model = 0
 # use tf idf = True or BOW
 tfidf_vec = True
@@ -89,7 +88,7 @@ def plot(model_param):
     plt.title('Accuracy as a function of train size')
     plt.xlabel('train size')
     plt.ylabel('Accuracy %')
-    #plt.ylim(0.5, 1)
+    plt.ylim(0.7, 1)
     plt.savefig('plot', dpi = 600)
     plt.show()
 
@@ -326,14 +325,14 @@ else:
             else:
                     print("Feature vocabulary: Too many features!")
 
-            # Create and show confussion matrix
+            # Create and show confusion matrix
             conf_matrix = confusion_matrix(y_true_class, y_pred_class)
             print("Confussion matrix:")
             print(conf_matrix)
 
             print('\n')
 
-            # Ekstra statistisk (debugging)
+            # Ekstra statistik (debugging)
             debugging_accuracy = np.append(debugging_accuracy, accuracy)
 
         # Print debugging statistiker
