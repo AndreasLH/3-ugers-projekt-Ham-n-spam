@@ -46,7 +46,7 @@ filename = 'datasæt/processed_emails_v1.csv'
 file_out = 'plot'
 
 n_samples = 40
-train_size_vect = np.linspace(2, 2000, n_samples, dtype = 'int32')
+train_size_vect = np.linspace(3, 2500, n_samples, dtype = 'int32')
 max_features_vect = np.linspace(100, 20_000, n_samples, dtype = 'int32')
 number_neighbors_vect = np.linspace(1, 40, n_samples, dtype = 'int32')
 #feature to plot
@@ -58,17 +58,17 @@ confint = np.zeros(n_samples)
 # Change parameters (split_dataset, tfidfVectorizer and KNN)
 SD_random_state = 1            # None or int
 SD_shuffle = True
-SD_train_size = 2000                # None, int or float
-SD_test_size = 500             # None, int or float
+SD_train_size = 1500                # None, int or float
+SD_test_size = 2500            # None, int or float
 
 TFIDF_max_features = None       # None or int
 
 KNN_k = 3
 
 # Change which model to run (GaussNB = 0, MultinomialNB = 1, KNN = 2)
-model = 0
+model = 2
 # use tf idf = True or BOW = False
-tfidf_vec = True
+tfidf_vec = False
 
 # Number of times test should be maken (with these parameters)
 iterations = 1
@@ -80,7 +80,7 @@ df = pd.read_csv(filename)
 x = df.text
 y = df.spam
 
-debugging_accuracy = np.array([]) # used to calcalu
+debugging_accuracy = np.array([]) # used to calculate mean
 
 
 ###############################################################################
@@ -95,9 +95,10 @@ def plot(model_param):
     plt.title('Accuracy as a function of train size')
     plt.xlabel('Train size')
     plt.ylabel('Accuracy \%')
-    plt.text(1100, 0.72, f'95\% CI with a test size of {SD_test_size}')
+    #plt.text(1100, 0.72, f'95\% CI with a test size of {SD_test_size}')
     plt.ylim(0.7, 1)
-    plt.xlim(-2, 2000)
+    plt.xlim(-2, SD_test_size)
+    plt.grid(linestyle=':')
     plt.savefig(file_out, dpi = 600)
     plt.show()
 
