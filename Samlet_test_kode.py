@@ -190,7 +190,9 @@ if tfidf_vec:
         # https://realpython.com/python-kwargs-and-args/
                 'train_size': SD_train_size,
                 'test_size': SD_test_size,
-                'random_state': SD_random_state
+                'random_state': SD_random_state,
+                'shuffle': SD_shuffle,
+                'stratify': y
                 }
 
             X_train, X_test, y_train, y_test = train_test_split(x, y, **kwargs)
@@ -275,7 +277,8 @@ else:
                 'train_size': SD_train_size,            # https://realpython.com/python-kwargs-and-args/
                 'test_size': SD_test_size,
                 'random_state': SD_random_state,
-                'shuffle': SD_shuffle
+                'shuffle': SD_shuffle,
+                'stratify': y
                 }
 
             X_train, X_test, y_train, y_test = train_test_split(x, y, **kwargs1)
