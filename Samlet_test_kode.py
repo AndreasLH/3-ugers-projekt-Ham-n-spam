@@ -43,8 +43,8 @@ filename = 'datasæt/processed_emails_v1.csv'
 #png (plot) file out name
 file_out = 'plot'
 
-n_samples = 1
-train_size_vect = np.linspace(2000, 2000, n_samples, dtype = 'int32')
+n_samples = 40
+train_size_vect = np.linspace(2, 2000, n_samples, dtype = 'int32')
 max_features_vect = np.linspace(100, 20_000, n_samples, dtype = 'int32')
 number_neighbors_vect = np.linspace(1, 40, n_samples, dtype = 'int32')
 #feature to plot
@@ -57,16 +57,16 @@ confint = np.zeros(n_samples)
 SD_random_state = 1            # None or int
 SD_shuffle = True
 SD_train_size = 2000                # None, int or float
-SD_test_size = 1500             # None, int or float
+SD_test_size = 500             # None, int or float
 
 TFIDF_max_features = None       # None or int
 
 KNN_k = 3
 
 # Change which model to run (GaussNB = 0, MultinomialNB = 1, KNN = 2)
-model = 1
+model = 0
 # use tf idf = True or BOW = False
-tfidf_vec = False
+tfidf_vec = True
 
 # Number of times test should be maken (with these parameters)
 iterations = 1
@@ -87,13 +87,15 @@ def plot(model_param):
     plt.figure()
     plt.fill_between(model_param, output-confint,output+confint,
                      color = 'gray',alpha = 0.2)
-    plt.plot(model_param, output)
+    plt.plot(model_param, output, 'k')
     #use latex font for graph
     plt.rc('text', usetex=True)
     plt.title('Accuracy as a function of train size')
     plt.xlabel('Train size')
     plt.ylabel('Accuracy \%')
+    plt.text(1100, 0.72, f'95\% CI with a test size of {SD_test_size}')
     plt.ylim(0.7, 1)
+    plt.xlim(-2, 2000)
     plt.savefig(file_out, dpi = 600)
     plt.show()
 
@@ -266,9 +268,9 @@ if tfidf_vec:
         output[i] = mean
         #confint[i] = 1.96*np.sqrt((mean*(1-mean))/(SD_train_size))
         #agresti
-        p_bar = (mean*SD_train_size+2) / (SD_train_size+4)
+        p_bar = (mean*SD_test_size+2) / (SD_test_size+4)
 
-        confint[i] = 1.96*np.sqrt((p_bar*(1-p_bar))/(SD_train_size+4))
+        confint[i] = 1.96*np.sqrt((p_bar*(1-p_bar))/(SD_test_size+4))
 
 else:
     for i in range(n_samples):
@@ -349,9 +351,9 @@ else:
         output[i] = mean
         #confint[i] = 1.96*np.sqrt((mean*(1-mean))/(SD_train_size))
         #agresti
-        p_bar = (mean*SD_train_size+2) / (SD_train_size+4)
+        p_tilde = (mean*SD_test_size+2) / (SD_test_size+4)
 
-        confint[i] = 1.96*np.sqrt((p_bar*(1-p_bar))/(SD_train_size+4))
+        confint[i] = 1.96*np.sqrt((p_tilde*(1-p_tilde))/(SD_test_size+4))
 
 plot(model_param)
 
