@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv('emails.csv')
+df = pd.read_csv('datasæt/emails.csv')
 
 #all lines with spam / ham
 x = np.linspace(0.1, 1, 10)
