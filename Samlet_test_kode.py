@@ -31,7 +31,10 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.neighbors import KNeighborsClassifier
 # Import modules for data representation
 from sklearn.metrics import confusion_matrix
-
+# =============================================================================
+# from KNNgraph import k_accuracy_range
+# from KNNgraph import k_error_range
+# =============================================================================
 
 """    This part is for changing variables while testing ML-algortihms     """
 
@@ -57,17 +60,17 @@ confint = np.zeros(n_samples)
 # Change parameters (split_dataset, tfidfVectorizer and KNN)
 SD_random_state = 1            # None or int
 SD_shuffle = True
-SD_train_size = 2000                # None, int or float
-SD_test_size = 1500             # None, int or float
+SD_train_size = 1500                # None, int or float
+SD_test_size = 2268             # None, int or float
 
 TFIDF_max_features = None       # None or int
 
 KNN_k = 3
 
 # Change which model to run (GaussNB = 0, MultinomialNB = 1, KNN = 2)
-model = 1
+model = 2
 # use tf idf = True or BOW = False
-tfidf_vec = False
+tfidf_vec = True
 
 # Number of times test should be maken (with these parameters)
 iterations = 1
@@ -84,19 +87,21 @@ debugging_accuracy = np.array([]) # used to calcalu
 
 ###############################################################################
 ###############################################################################
-def plot(model_param):
-    plt.figure()
-    plt.fill_between(model_param, output-confint,output+confint,
-                     color = 'gray',alpha = 0.2)
-    plt.plot(model_param, output)
-    #use latex font for graph
-    plt.rc('text', usetex=True)
-    plt.title('Accuracy as a function of train size')
-    plt.xlabel('Train size')
-    plt.ylabel('Accuracy \%')
-    plt.ylim(0.7, 1)
-    plt.savefig(file_out, dpi = 600)
-    plt.show()
+# =============================================================================
+# def plot(model_param):
+#     plt.figure()
+#     plt.fill_between(model_param, output-confint,output+confint,
+#                      color = 'gray',alpha = 0.2)
+#     plt.plot(model_param, output)
+#     #use latex font for graph
+#     #plt.rc('text', usetex=True)
+#     plt.title('Accuracy as a function of train size')
+#     plt.xlabel('Train size')
+#     plt.ylabel('Accuracy \%')
+#     plt.ylim(0.7, 1)
+#     plt.savefig(file_out, dpi = 600)
+#     plt.show()
+# =============================================================================
 
 def gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test):
     """ Predict classes with gaussian Naive Bayes """
@@ -354,8 +359,74 @@ else:
 
         confint[i] = 1.96*np.sqrt((p_bar*(1-p_bar))/(SD_train_size+4))
 
-plot(model_param)
+#plot(model_param)
 
+from sklearn import metrics
+plt.style.use('seaborn')
+
+
+#Define the function
+def k_error_range(X_train_dtm, y_train, X_test_dtm, y_test):
+    
+    #make an empty array for the errors
+    error = []
+    
+    #Loop through the k values from 1 to 25
+    for k in range(1,25):
+        KNN = KNeighborsClassifier(n_neighbors = k, algorithm = 'brute')
+
+        # Fit model to our training data
+        KNN.fit(X_train_dtm,y_train)
+
+        y_pred_class = KNN.predict(X_test_dtm)
+
+        pred_k_knn = KNeighborsClassifier(n_neighbors = k)
+                
+        #Append the mean error of the predection is calculated to the error list
+        error.append(np.mean(pred_k_knn != y_test))   
+    #Plot  
+    plt.figure(dpi = 600)
+    plt.plot(range(1,25),error,color = '#4B0082',linestyle = 'solid',linewidth = 3, 
+             marker = 'D',markerfacecolor = '#6495ED')
+    plt.title('Error Rate for different K values',fontsize = 30)
+    plt.xlabel('K Value',fontsize = 20)
+    plt.ylabel('Mean Error',fontsize = 20)
+    plt.savefig('error_fig')
+    plt.show()
+
+k_error_range(X_train_dtm, y_train, X_test_dtm, y_test)  
+
+# =============================================================================
+# def k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test):
+#     
+#     #Make empty list of scores
+#     accuracy_list = []
+#     
+#     #Loop through the first the K values from 1 to 25
+#     for k in range(1,25):
+#         
+#         #The K-  Nearest Neighbors are calculated
+#         knn = KNeighborsClassifier(n_neighbors = k)
+#         
+#         #The data is trained
+#         knn.fit(X_train_dtm,y_train)
+#         
+#         #The predictions are made
+#         y_pred_knn= knn.predict(X_test_dtm)
+#         
+#         #The accuracy of the prediction is calculated and appended to the accuracy list
+#         accuracy_list.append(metrics.accuracy_score(y_test,y_pred_knn))
+#         
+#     #Plot
+#     plt.figure(dpi = 600)
+#     plt.plot(range(1,25),accuracy_list,color = '#4B0082',linestyle = 'solid',linewidth = 3,
+#              marker = 'D',markerfacecolor = '#6495ED')
+#     plt.title('Testing Accuracy for different K values',fontsize = 30)
+#     plt.xlabel('K Value',fontsize = 20)
+#     plt.ylabel('Testing accuracy',fontsize = 20)
+#     plt.savefig('accuracy_fig')
+#     plt.show()
+# =============================================================================
 
 
 ###############################################################################

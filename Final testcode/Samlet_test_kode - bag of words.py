@@ -30,7 +30,7 @@ filename = 'processed_emails_v1.csv'
 SD_random_state = 1            # None or int
 SD_shuffle = True
 SD_train_size = 1500                # None, int or float
-SD_test_size = 2000               # None, int or float
+SD_test_size = 2268               # None, int or float
 
 KNN_k = 3
 
@@ -43,7 +43,7 @@ model = 1
 iterations = 1
 
 # Split mode
-split = 0   # (0 = 24/64 and 1 = 50/50)
+split = 1   # (0 = 24/64 and 1 = 50/50)
 
 ###############################################################################
 ###############################################################################
@@ -206,7 +206,14 @@ mean = np.mean(debbuging_accuracy)
 print("-------- Over all ----------")
 print("Mean: {:.4f}".format(mean))
 
-
+# =============================================================================
+# from KNNgraph import k_error_range
+# from KNNgraph import k_accuracy_range
+# 
+# k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test)
+# 
+# k_error_range(X_train_dtm, y_train, X_test_dtm, y_test)  
+# =============================================================================
 
 
 # Fjern ekstra shuffle

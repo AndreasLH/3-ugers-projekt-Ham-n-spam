@@ -20,7 +20,6 @@ def k_error_range(X_train_dtm, y_train, X_test_dtm, y_test):
     
     #make an empty array for the errors
     error = []
-    
     #Loop through the k values from 1 to 25
     for k in range(1,25):
         
@@ -43,7 +42,7 @@ def k_error_range(X_train_dtm, y_train, X_test_dtm, y_test):
     plt.title('Error Rate for different K values',fontsize = 30)
     plt.xlabel('K Value',fontsize = 20)
     plt.ylabel('Mean Error',fontsize = 20)
-    plt.savefig('error_fig')
+    plt.savefig('error_fig_TFIDF')
     plt.show()
     
 def k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test):
@@ -73,14 +72,8 @@ def k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test):
     plt.title('Testing Accuracy for different K values',fontsize = 30)
     plt.xlabel('K Value',fontsize = 20)
     plt.ylabel('Testing accuracy',fontsize = 20)
-    plt.savefig('accuracy_fig')
+    plt.savefig('accuracy_fig_TFIDF')
     plt.show()
     
-"""ADD TO 'SAMLET' FIL"""
-# =============================================================================
-# from KNNgraph import k_error_range
-# from KNNgraph import k_accuracy_range
-# k_error_range(X_train_dtm, y_train, X_test_dtm, y_test)
-# k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test)
-# =============================================================================
+
 

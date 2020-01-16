@@ -33,13 +33,13 @@ TFIDF_max_features = None           # None or int
 KNN_k = 3
 
 # Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
-model = 2
+model = 0
 
 # Number of times test should be maken (with these parameters)
 iterations = 1
 
 # Train-split mode
-split = 0     # (0 = 24/64 and 1 = 50/50)
+split = 1     # (0 = 24/64 and 1 = 50/50)
 
 ###############################################################################
 ###############################################################################
@@ -243,12 +243,13 @@ mean = np.mean(debbuging_accuracy)
 print("-------- Over all ----------")
 print("Mean: {:.4f}".format(mean))
 
-from KNNgraph import k_accuracy_range
-from KNNgraph import k_error_range
-
-k_error_range(X_train_dtm, y_train, X_test_dtm, y_test)
-k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test)
-
+# =============================================================================
+# from KNNgraph import k_accuracy_range
+# from KNNgraph import k_error_range
+# 
+# k_error_range(X_train_dtm, y_train, X_test_dtm, y_test)
+# k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test)
+# =============================================================================
 
 # =============================================================================
 # print(df.text[174])
