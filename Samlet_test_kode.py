@@ -40,10 +40,13 @@ from barplot import confusion_matrix_visual
 ###############################################################################
 #                      -----  Mission Control  -----                          #
 ###############################################################################
-filename = 'processed_emails_v1.csv'
+#csv file in
+filename = 'datasæt/processed_emails_v1.csv'
+#png (plot) file out name
+file_out = 'plot'
 
-n_samples = 10
-train_size_vect = np.linspace(3, 4000, n_samples, dtype = 'int32')
+n_samples = 1
+train_size_vect = np.linspace(2000, 2000, n_samples, dtype = 'int32')
 max_features_vect = np.linspace(100, 20_000, n_samples, dtype = 'int32')
 number_neighbors_vect = np.linspace(1, 40, n_samples, dtype = 'int32')
 #feature to plot
@@ -53,20 +56,19 @@ output = np.zeros(n_samples)
 confint = np.zeros(n_samples)
 
 # Change parameters (split_dataset, tfidfVectorizer and KNN)
-SD_random_state = None            # None or int
+SD_random_state = 1            # None or int
 SD_shuffle = True
-SD_train_size = 0.8                # None, int or float
-SD_test_size = None             # None, int or float
+SD_train_size = 2000                # None, int or float
+SD_test_size = 1500             # None, int or float
 
 TFIDF_max_features = None       # None or int
 
 KNN_k = 3
 
 # Change which model to run (GaussNB = 0, MultinomialNB = 1, KNN = 2)
-
-model = 0
-# use tf idf = True or BOW
-tfidf_vec = True
+model = 1
+# use tf idf = True or BOW = False
+tfidf_vec = False
 
 # Number of times test should be maken (with these parameters)
 iterations = 1
@@ -88,11 +90,13 @@ def plot(model_param):
     plt.fill_between(model_param, output-confint,output+confint,
                      color = 'gray',alpha = 0.2)
     plt.plot(model_param, output)
+    #use latex font for graph
+    plt.rc('text', usetex=True)
     plt.title('Accuracy as a function of train size')
-    plt.xlabel('train size')
-    plt.ylabel('Accuracy %')
-    #plt.ylim(0.5, 1)
-    plt.savefig('plot', dpi = 600)
+    plt.xlabel('Train size')
+    plt.ylabel('Accuracy \%')
+    plt.ylim(0.7, 1)
+    plt.savefig(file_out, dpi = 600)
     plt.show()
 
 def gaussianNB(X_train_dtm, y_train, X_test_dtm, y_test):
@@ -193,7 +197,9 @@ if tfidf_vec:
         # https://realpython.com/python-kwargs-and-args/
                 'train_size': SD_train_size,
                 'test_size': SD_test_size,
-                'random_state': SD_random_state
+                'random_state': SD_random_state,
+                'shuffle': SD_shuffle,
+                'stratify': y
                 }
 
             X_train, X_test, y_train, y_test = train_test_split(x, y, **kwargs)
@@ -231,14 +237,11 @@ if tfidf_vec:
             # Show features
             if type(TFIDF_max_features) == int:
                 if TFIDF_max_features <= 15:
-
                     print("Feature vocabulary:")
-
                     for word in range(np.size(vocabulary)):
                         print("\t{}. {}".format(word+1,vocabulary[word]))
-
             else:
-                    print("Feature vocabulary: Too many features! to print")
+                print("Feature vocabulary: Too many features! to print")
 
             # Create and show confusion matrix
             conf_matrix = confusion_matrix(y_true_class, y_pred_class)
@@ -278,7 +281,8 @@ else:
                 'train_size': SD_train_size,            # https://realpython.com/python-kwargs-and-args/
                 'test_size': SD_test_size,
                 'random_state': SD_random_state,
-                'shuffle': SD_shuffle
+                'shuffle': SD_shuffle,
+                'stratify': y
                 }
 
             X_train, X_test, y_train, y_test = train_test_split(x, y, **kwargs1)
@@ -328,14 +332,14 @@ else:
             else:
                     print("Feature vocabulary: Too many features!")
 
-            # Create and show confussion matrix
+            # Create and show confusion matrix
             conf_matrix = confusion_matrix(y_true_class, y_pred_class)
-            print("Confussion matrix:")
+            print("Confusion matrix:")
             print(conf_matrix)
 
             print('\n')
 
-            # Ekstra statistisk (debugging)
+            # Ekstra statistik (debugging)
             debugging_accuracy = np.append(debugging_accuracy, accuracy)
 
         # Print debugging statistiker
@@ -375,8 +379,8 @@ Info jeg gerne vil have at den skal spytte ud:
     2. Runtime -|
     3. Valgte max-features -|
     4. probabilities - ikke den store grund til da disse altid er stort set 0 eller 1 -|
-    5. messages classified wrong (og true class) - ikke nødvendig kan ses af confussion matrix -|
-    6. confussion matrix -|
+    5. messages classified wrong (og true class) - ikke nødvendig kan ses af Confusion matrix -|
+    6. Confusion matrix -|
 
 """
 
