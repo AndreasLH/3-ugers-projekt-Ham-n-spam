@@ -31,7 +31,6 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.neighbors import KNeighborsClassifier
 # Import modules for data representation
 from sklearn.metrics import confusion_matrix
-from barplot import confusion_matrix_visual
 
 
 """    This part is for changing variables while testing ML-algortihms     """
@@ -357,7 +356,7 @@ else:
 
 plot(model_param)
 
-confusion_matrix_visual(conf_matrix,model)
+
 
 ###############################################################################
 ###############################################################################

@@ -25,7 +25,7 @@ filename = 'processed_emails_v1.csv'
 SD_random_state = 1               # None or int
 SD_shuffle = True
 SD_train_size = 1500              # None, int or float
-SD_test_size = 2000               # None, int or float
+SD_test_size = 2268               # None, int or float
 
 
 TFIDF_max_features = None           # None or int
@@ -242,6 +242,13 @@ mean = np.mean(debbuging_accuracy)
 
 print("-------- Over all ----------")
 print("Mean: {:.4f}".format(mean))
+
+from KNNgraph import k_accuracy_range
+from KNNgraph import k_error_range
+
+k_error_range(X_train_dtm, y_train, X_test_dtm, y_test)
+k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test)
+
 
 # =============================================================================
 # print(df.text[174])
