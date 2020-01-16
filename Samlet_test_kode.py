@@ -59,6 +59,7 @@ SD_shuffle = True
 SD_train_size = 0.8                # None, int or float
 SD_test_size = None             # None, int or float
 
+TFIDF_max_features = 300       # None or int
 
 KNN_k = 3
 
