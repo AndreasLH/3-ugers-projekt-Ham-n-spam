@@ -1,24 +1,21 @@
 # -*- coding: utf-8 -*-
-
-""" Program Description:
-    A program created to be able to test and export results (data) of
-    different ML-algortims under varying circumstances (changing parameters)
-    Based on the following sources:
+"""
+Program Description:
+A program created to be able to test and export results (data) of
+different ML-algortims under varying circumstances (changing parameters)
+Based on the following sources:
     1. https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier (KNN)
     2. https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB (Gauss NB)
     3. https://scikit-learn.org/stable/modules/naive_bayes.html (Generelt om NB)
     4. https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html (Multinomial NB)
     5. https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html (TfidfVectorizer)
-
 """
 # Import general libraires
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
 # Import runtime libraries
 from time import time
-
 # Import SciKit modules (for GaussNB)
 from sklearn.model_selection import train_test_split
 #tf-idf
@@ -33,10 +30,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
 from barplot import confusion_matrix_visual
 
-
 """    This part is for changing variables while testing ML-algortihms     """
 
-###############################################################################
 ###############################################################################
 #                      -----  Mission Control  -----                          #
 ###############################################################################
@@ -44,6 +39,8 @@ from barplot import confusion_matrix_visual
 filename = 'datasæt/processed_emails_v1.csv'
 #png (plot) file out name
 file_out = 'plot'
+#show plots or not
+show_plots = False
 
 n_samples = 40
 train_size_vect = np.linspace(3, 2500, n_samples, dtype = 'int32')
@@ -52,8 +49,6 @@ number_neighbors_vect = np.linspace(1, 40, n_samples, dtype = 'int32')
 #feature to plot
 model_param = train_size_vect
 
-output = np.zeros(n_samples)
-confint = np.zeros(n_samples)
 
 # Change parameters (split_dataset, tfidfVectorizer and KNN)
 SD_random_state = 1            # None or int
@@ -67,7 +62,7 @@ KNN_k = 3
 
 # Change which model to run (GaussNB = 0, MultinomialNB = 1, KNN = 2)
 model = 2
-# use tf idf = True or BOW = False
+# use TF-IDF = True or BOW = False
 tfidf_vec = False
 
 # Number of times test should be maken (with these parameters)
@@ -81,9 +76,11 @@ x = df.text
 y = df.spam
 
 debugging_accuracy = np.array([]) # used to calculate mean
-
+output = np.zeros(n_samples)
+confint = np.zeros(n_samples)
 
 ###############################################################################
+#                               Functions                                     #
 ###############################################################################
 def plot(model_param):
     plt.figure()
@@ -185,6 +182,11 @@ def tfidf(X_train, X_test, TFIDF_max_features):
     vocabulary = vect.get_feature_names()
 
     return X_train_dtm, X_test_dtm, vocabulary
+
+###############################################################################
+#                               Main loop                                     #
+###############################################################################
+
 
 if tfidf_vec:
     for i in range(n_samples):
@@ -358,6 +360,6 @@ else:
 
         confint[i] = 1.96*np.sqrt((p_tilde*(1-p_tilde))/(SD_test_size+4))
 
-plot(model_param)
-
-confusion_matrix_visual(conf_matrix,model)
+if show_plots:
+    plot(model_param)
+    confusion_matrix_visual(conf_matrix,model)
