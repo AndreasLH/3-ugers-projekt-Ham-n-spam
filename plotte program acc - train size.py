@@ -2,12 +2,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# =============================================================================
-# x = np.array([   3,   67,  131,  195,  259,  323,  387,  451,  515,  579,  643,
-#         707,  771,  835,  899,  963, 1027, 1091, 1155, 1219, 1283, 1347,
-#        1411, 1475, 1539, 1603, 1667, 1731, 1795, 1859, 1923, 1987, 2051,
-#        2115, 2179, 2243, 2307, 2371, 2435, 2500])
-# =============================================================================
 n_samples = 40
 train_size_vect = np.linspace(3, 2500, n_samples, dtype = 'int32')
 model_param = train_size_vect
@@ -77,7 +71,6 @@ confint4 = np.array([0.01670958, 0.01677602, 0.01677288, 0.01674292, 0.01665184,
        0.01478442, 0.01472301, 0.01465219, 0.01458563, 0.01451902,
        0.01444912, 0.0143866 , 0.01432298, 0.01426207, 0.01419959])
 
-
 plt.figure()
 #1
 plt.fill_between(model_param, output1-confint1, output1+confint1,
@@ -85,18 +78,16 @@ plt.fill_between(model_param, output1-confint1, output1+confint1,
 plt.plot(model_param, output1, 'k', label = 'GaussNB(TF-IDF)')
 #2
 plt.fill_between(model_param, output2-confint2,output2+confint2,
-                 color = 'gray',alpha = 0.2)
+                 color = 'b',alpha = 0.2)
 plt.plot(model_param, output2, 'b', label = 'MultinomialNB(BOW)')
 #3
 plt.fill_between(model_param, output3-confint3,output3+confint3,
-                 color = 'gray',alpha = 0.2)
+                 color = 'r',alpha = 0.2)
 plt.plot(model_param, output3, 'r', label = 'KNN(TF-IDF)')
 #4
 plt.fill_between(model_param, output4-confint4,output4+confint4,
-                 color = 'gray',alpha = 0.2)
+                 color = 'g',alpha = 0.2)
 plt.plot(model_param, output4, 'g', label = 'KNN(BOW)')
-
-
 
 #use latex font for graph
 plt.rc('text', usetex=True)
