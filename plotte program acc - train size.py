@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 n_samples = 40
-train_size_vect = np.linspace(3, 2500, n_samples, dtype = 'int32')
+train_size_vect = np.linspace(3, 2500, n_samples, dtype='int32')
 model_param = train_size_vect
 
 output1 = np.array([0.7656    , 0.826     , 0.85306667, 0.8685    , 0.8764    ,
@@ -89,7 +89,7 @@ plt.fill_between(model_param, output4-confint4,output4+confint4,
                  color = 'g',alpha = 0.2)
 plt.plot(model_param, output4, 'g', label = 'KNN(BOW)')
 
-#use latex font for graph
+# use latex font for graph
 #plt.rc('text', usetex=True)
 plt.title('Korrekt klassificeret som funktion af træningsstørrelse')
 plt.xlabel('Træningsstørrelse')
