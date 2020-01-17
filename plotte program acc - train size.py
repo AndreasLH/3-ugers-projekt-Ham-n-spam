@@ -90,10 +90,10 @@ plt.fill_between(model_param, output4-confint4,output4+confint4,
 plt.plot(model_param, output4, 'g', label = 'KNN(BOW)')
 
 #use latex font for graph
-plt.rc('text', usetex=True)
-plt.title('Accuracy as a function of train size')
-plt.xlabel('Train size')
-plt.ylabel('Accuracy \%')
+#plt.rc('text', usetex=False)
+plt.title('Korrekt klassificeret som funktion af træningsstørrelse')
+plt.xlabel('Træningsstørrelse')
+plt.ylabel('Korrekt klassificeret %')
 #plt.text(1100, 0.72, f'95\% CI with a test size of {SD_test_size}')
 plt.ylim(0.7, 1)
 plt.xlim(-2, 2500)
