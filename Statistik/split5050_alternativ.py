@@ -76,7 +76,7 @@ def split5050(x,y):
 
 
 import pandas as pd
-df = pd.read_csv('Datasæt/processed_emails_v1.csv')
+df = pd.read_csv('processed_emails_v1.csv')
 
 x = df.text
 y = df.spam
