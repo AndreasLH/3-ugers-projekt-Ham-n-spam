@@ -71,10 +71,10 @@ per3 = round((Eks1_KT[0,1]/(Eks1_KT[1,0]+Eks1_KT[0,1]))*100,ndigits = 3)
 per4 = round((Eks1_KB[0,1]/(Eks1_KB[1,0]+Eks1_KB[0,1]))*100,ndigits = 3)
 
 
-plt.text(position_x[0]-0.12,((Eks1_NBG[0,1])/2),per1,color='white')
-plt.text(position_x[1]-0.12,((Eks1_NBM[0,1])/2),per2,color='white')
-plt.text(position_x[2]-0.12,((Eks1_KT[0,1])/2),per3,color='white')
-plt.text(position_x[3]-0.12,((Eks1_KB[0,1])/2),per4,color='white')
+plt.text(position_x[0]-0.2,((Eks1_NBG[0,1])/2),per1,color='white')
+plt.text(position_x[1]-0.2,((Eks1_NBM[0,1])/2-3),per2,color='white')
+plt.text(position_x[2]-0.2,((Eks1_KT[0,1])/2-3),per3,color='white')
+plt.text(position_x[3]-0.2,((Eks1_KB[0,1])/2),per4,color='white')
 
 
 plt.xticks(position_x,model,fontweight = 'bold')
@@ -124,10 +124,10 @@ per7 = round((Eks2_KT[0,1]/(Eks2_KT[1,0]+Eks2_KT[0,1]))*100,ndigits = 3)
 per8 = round((Eks2_KB[0,1]/(Eks2_KB[1,0]+Eks2_KB[0,1]))*100,ndigits = 3)
 
 
-plt.text(position_x[0]-0.12,((Eks2_NBG[0,1])/2),per5,color='white')
-plt.text(position_x[1]-0.12,((Eks2_NBM[0,1])/2),per6,color='white')
-plt.text(position_x[2]-0.12,((Eks2_KT[0,1])/2),per7,color='white')
-plt.text(position_x[3]-0.12,((Eks2_KB[0,1])/2),per8,color='white')
+plt.text(position_x[0]-0.2,((Eks2_NBG[0,1])/2),per5,color='white')
+plt.text(position_x[1]-0.2,((Eks2_NBM[0,1])/2-3),per6,color='white')
+plt.text(position_x[2]-0.2,((Eks2_KT[0,1])/2),per7,color='white')
+plt.text(position_x[3]-0.2,((Eks2_KB[0,1])/2),per8,color='white')
 
 
 plt.xticks(position_x,model,fontweight = 'bold')
