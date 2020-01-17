@@ -1,3 +1,6 @@
+# Filer
+Hovedfil er `Samlet_test_kode.py`
+
 # Links til forståelse af Naive Bayes klassifikation
 
 I opgaven har vi indtil videre kun brugt Naive Bayes i Gauss versionen (kontinuerte værdier). Jeg kan dog anbefale at læse de andre links igennem for at få en forståelse. Det anbefales dog at få en forståelse for alle 3 versioner (da det let vil kunne impelmenteres som næste del af projektet).
@@ -11,9 +14,6 @@ I opgaven har vi indtil videre kun brugt Naive Bayes i Gauss versionen (kontinue
 
 ## Dataset
 https://www.kaggle.com/karthickveerakumar/spam-filter/version/1
-
-## filer
-Hovedfil er `Samlet_test_kode.py`
 
 ## Versioner af datasæt
 Konstante parametere i datatransformation:
