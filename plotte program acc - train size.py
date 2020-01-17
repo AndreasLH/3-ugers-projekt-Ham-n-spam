@@ -90,7 +90,7 @@ plt.fill_between(model_param, output4-confint4,output4+confint4,
 plt.plot(model_param, output4, 'g', label = 'KNN(BOW)')
 
 #use latex font for graph
-#plt.rc('text', usetex=False)
+#plt.rc('text', usetex=True)
 plt.title('Korrekt klassificeret som funktion af træningsstørrelse')
 plt.xlabel('Træningsstørrelse')
 plt.ylabel('Korrekt klassificeret %')
