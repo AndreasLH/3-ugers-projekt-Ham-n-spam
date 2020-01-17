@@ -42,7 +42,7 @@ def k_error_range(X_train_dtm, y_train, X_test_dtm, y_test):
     plt.title('Error Rate for different K values',fontsize = 30)
     plt.xlabel('K Value',fontsize = 20)
     plt.ylabel('Mean Error',fontsize = 20)
-    plt.savefig('error_fig_TFIDF')
+    plt.savefig('error_fig_BOW')
     plt.show()
     
 def k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test):
@@ -72,7 +72,7 @@ def k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test):
     plt.title('Testing Accuracy for different K values',fontsize = 30)
     plt.xlabel('K Value',fontsize = 20)
     plt.ylabel('Testing accuracy',fontsize = 20)
-    plt.savefig('accuracy_fig_TFIDF')
+    plt.savefig('accuracy_fig_BOW')
     plt.show()
     
 
