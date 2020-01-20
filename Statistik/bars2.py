@@ -46,56 +46,17 @@ width_bars = 0.5
 model = ['GaussNB','MultiNB','KNN TF-IDF','KNN BOW']
 
 #NBG CONF
-n_NBG = Eks1_NBG[1,1]+Eks1_NBG[1,0]
-p_NBG = Eks1_NBG[1,0]/n_NBG
-n1_NBG = n_NBG + 4
-p1_NBG = (p_NBG*n_NBG+2)/(n_NBG+4)
-conf_int_NBG = 1.96**2*np.sqrt((p1_NBG*(1-p1_NBG))/n1_NBG)*100
+conf_int_NBG = 0.007977475002*100
+conf_int_NBG1 = 0.005064197040*100
 
-n_NBG1 = Eks1_NBG[0,0]+Eks1_NBG[0,1]
-p_NBG1 = Eks1_NBG[0,1]/n_NBG1
-n1_NBG1 = n_NBG + 4
-p1_NBG1 = (p_NBG1*n_NBG1+2)/(n_NBG1+4)
-conf_int_NBG1 = 1.96**2*np.sqrt((p1_NBG1*(1-p1_NBG1))/n1_NBG1)*100
+conf_int_NBM = 0.003217877947*100
+conf_int_NBM1 = 0.004116254577*100
 
-#NBM CONF
-n_NBM = Eks1_NBM[1,1]+Eks1_NBM[1,0]
-p_NBM = Eks1_NBM[1,0]/n_NBM
-n1_NBM = n_NBM + 4
-p1_NBM = (p_NBM*n_NBM+2)/(n_NBM+4)
-conf_int_NBM = 1.96**2*np.sqrt((p1_NBM*(1-p1_NBM))/n1_NBM)*100
+conf_int_KT = 0.006319864574*100
+conf_int_KT1 = 0.003840986420*100
 
-n_NBM1 = Eks1_NBM[0,0]+Eks1_NBM[0,1]
-p_NBM1 = Eks1_NBM[0,1]/n_NBM1
-n1_NBM1 = n_NBM + 4
-p1_NBM1 = (p_NBM1*n_NBM1+2)/(n_NBM1+4)
-conf_int_NBM1 = 1.96**2*np.sqrt((p1_NBM1*(1-p1_NBM1))/n1_NBM1)*100
-
-#KT CONF
-n_KT = Eks1_KT[1,1]+Eks1_KT[1,0]
-p_KT = Eks1_KT[1,0]/n_KT
-n1_KT = n_KT + 4
-p1_KT = (p_KT*n_KT+2)/(n_KT+4)
-conf_int_KT = 1.96**2*np.sqrt((p1_KT*(1-p1_KT))/n1_KT)*100
-
-n_KT1 = Eks1_KT[0,0]+Eks1_KT[0,1]
-p_KT1 = Eks1_KT[0,1]/n_KT1
-n1_KT1 = n_KT1 + 4
-p1_KT1 = (p_KT1*n_KT1+2)/(n_KT1+4)
-conf_int_KT1 = 1.96**2*np.sqrt((p1_KT1*(1-p1_KT1))/n1_KT1)*100
-
-#KB CONF
-n_KB = Eks1_KB[1,1]+Eks1_KB[1,0]
-p_KB = Eks1_KB[1,0]/n_KB
-n1_KB = n_KB + 4
-p1_KB = (p_KB*n_KB+2)/(n_KB+4)
-conf_int_KB = 1.96**2*np.sqrt((p1_KB*(1-p1_KB))/n1_KB)*100
-
-n_KB1 = Eks1_KB[0,0]+Eks1_KB[0,1]
-p_KB1 = Eks1_KB[0,1]/n_KB1
-n1_KB1 = n_KB1 + 4
-p1_KB1 = (p_KB1*n_KB1+2)/(n_KB1+4)
-conf_int_KB1 = 1.96**2*np.sqrt((p1_KB1*(1-p1_KB1))/n1_KB1)*100
+conf_int_KB = 0.01149124853*100
+conf_int_KB1 = 0.007847257165*100
 
 
 p17 = plt.bar(position_x[0],per2_NBG+per1_NBG,color = '#571B7E',edgecolor = 'white', 
@@ -166,57 +127,17 @@ model = ['GaussNB','MultiNB','KNN TF-IDF','KNN BOW']
 
 
 #NBG CONF
-n_NBG = Eks2_NBG[1,1]+Eks2_NBG[1,0]
-p_NBG = Eks2_NBG[1,0]/n_NBG
-n1_NBG = n_NBG + 4
-p1_NBG = (p_NBG*n_NBG+2)/(n_NBG+4)
-conf_int_NBG = 1.96**2*np.sqrt((p1_NBG*(1-p1_NBG))/n1_NBG)*100
+conf_int_NBG = 0.005473754236*100
+conf_int_NBG1 = 0.007105608219*100
 
-n_NBG1 = Eks2_NBG[0,0]+Eks2_NBG[0,1]
-p_NBG1 = Eks2_NBG[0,1]/n_NBG1
-n1_NBG1 = n_NBG + 4
-p1_NBG1 = (p_NBG1*n_NBG1+2)/(n_NBG1+4)
-conf_int_NBG1 = 1.96**2*np.sqrt((p1_NBG1*(1-p1_NBG1))/n1_NBG1)*100
+conf_int_NBM = 0.002582897147*100
+conf_int_NBM1 = 0.004455881530*100
 
-#NBM CONF
-n_NBM = Eks2_NBM[1,1]+Eks2_NBM[1,0]
-p_NBM = Eks2_NBM[1,0]/n_NBM
-n1_NBM = n_NBM + 4
-p1_NBM = (p_NBM*n_NBM+2)/(n_NBM+4)
-conf_int_NBM = 1.96**2*np.sqrt((p1_NBM*(1-p1_NBM))/n1_NBM)*100
+conf_int_KT = 0.003744561580*100
+conf_int_KT1 = 0.006646650907*100
 
-n_NBM1 = Eks2_NBM[0,0]+Eks2_NBM[0,1]
-p_NBM1 = Eks2_NBM[0,1]/n_NBM1
-n1_NBM1 = n_NBM + 4
-p1_NBM1 = (p_NBM1*n_NBM1+2)/(n_NBM1+4)
-conf_int_NBM1 = 1.96**2*np.sqrt((p1_NBM1*(1-p1_NBM1))/n1_NBM1)*100
-
-#KT CONF
-n_KT = Eks2_KT[1,1]+Eks2_KT[1,0]
-p_KT = Eks2_KT[1,0]/n_KT
-n1_KT = n_KT + 4
-p1_KT = (p_KT*n_KT+2)/(n_KT+4)
-conf_int_KT = 1.96**2*np.sqrt((p1_KT*(1-p1_KT))/n1_KT)*100
-
-n_KT1 = Eks2_KT[0,0]+Eks2_KT[0,1]
-p_KT1 = Eks2_KT[0,1]/n_KT1
-n1_KT1 = n_KT1 + 4
-p1_KT1 = (p_KT1*n_KT1+2)/(n_KT1+4)
-conf_int_KT1 = 1.96**2*np.sqrt((p1_KT1*(1-p1_KT1))/n1_KT1)*100
-
-#KB CONF
-n_KB = Eks2_KB[1,1]+Eks2_KB[1,0]
-p_KB = Eks2_KB[1,0]/n_KB
-n1_KB = n_KB + 4
-p1_KB = (p_KB*n_KB+2)/(n_KB+4)
-conf_int_KB = 1.96**2*np.sqrt((p1_KB*(1-p1_KB))/n1_KB)*100
-
-n_KB1 = Eks2_KB[0,0]+Eks2_KB[0,1]
-p_KB1 = Eks2_KB[0,1]/n_KB1
-n1_KB1 = n_KB1 + 4
-p1_KB1 = (p_KB1*n_KB1+2)/(n_KB1+4)
-conf_int_KB1 = 1.96**2*np.sqrt((p1_KB1*(1-p1_KB1))/n1_KB1)*100
-
+conf_int_KB = 0.009481148660*100
+conf_int_KB1 = 0.01017915464*100
 
 p17 = plt.bar(position_x[0],per2_NBG+per1_NBG,color = '#571B7E',edgecolor = 'white', 
         width = width_bars,yerr = conf_int_NBG)
