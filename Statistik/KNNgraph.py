@@ -40,7 +40,7 @@ def k_error_range(X_train_dtm, y_train, X_test_dtm, y_test):
     plt.title('Fejl for k[1;25]',fontsize = 30)
     plt.xlabel('K-værdi',fontsize = 20)
     plt.ylabel('Standard Fejl',fontsize = 20)
-    plt.savefig('error_fig_BOW')
+    plt.savefig('error_fig_TFIDF_5050')
     plt.show()
     
 def k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test):
@@ -70,7 +70,7 @@ def k_accuracy_range(X_train_dtm, y_train, X_test_dtm, y_test):
     plt.title('Nøjagtighed for k[1;25]',fontsize = 30)
     plt.xlabel('K-værdi',fontsize = 20)
     plt.ylabel('Test præcision',fontsize = 20)
-    plt.savefig('accuracy_fig_BOW')
+    plt.savefig('accuracy_fig_TFIDF_5050')
     plt.show()
     
 

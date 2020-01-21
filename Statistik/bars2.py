@@ -22,7 +22,7 @@ Eks1_KT = np.array([[1708,18],[53,489]])
 Eks1_KB = np.array([[1642,84],[192,350]])
 Eks2_NBG = np.array([[1658,68],[39,503]])
 Eks2_NBM = np.array([[1701,25],[7,535]])
-Eks2_KT = np.array([[1667,59],[17,525]])
+Eks2_KT = np.array([[1703,23],[34,508]])
 Eks2_KB = np.array([[1579,147],[126,416]])
 
 per1_NBG = round((Eks1_NBG[0,1]/(Eks1_NBG[1,0]+Eks1_NBG[0,1]))*100,ndigits = 3)
@@ -60,31 +60,31 @@ conf_int_KB1 = 0.007847257165*100
 
 
 p17 = plt.bar(position_x[0],per2_NBG+per1_NBG,color = '#571B7E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_NBG)
+        width = width_bars,yerr = conf_int_NBG1)
 
 p18 = plt.bar(position_x[0],per2_NBG,color = '#7E587E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_NBG1)
+        width = width_bars,yerr = conf_int_NBG)
 
 
 p19 = plt.bar(position_x[1],per1_NBM+per2_NBM,color = '#571B7E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_NBM)
+        width = width_bars,yerr = conf_int_NBM1)
 
 p20 = plt.bar(position_x[1],per2_NBM,color = '#7E587E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_NBM1)
+        width = width_bars,yerr = conf_int_NBM)
 
 
 p21 = plt.bar(position_x[2],per1_KT+per2_KT,color = '#571B7E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_KT)
+        width = width_bars,yerr = conf_int_KT1)
 
 p22 = plt.bar(position_x[2],per2_KT,color = '#7E587E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_KT1)
+        width = width_bars,yerr = conf_int_KT)
 
 
 p23 = plt.bar(position_x[3],per1_KB+per2_KB,color = '#571B7E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_KB)
+        width = width_bars,yerr = conf_int_KB1)
 
 p24 = plt.bar(position_x[3],per2_KB,color = '#7E587E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_KB1)
+        width = width_bars,yerr = conf_int_KB)
 
 
 plt.text(position_x[0]-0.2,80,per1_NBG,color='white')
@@ -133,38 +133,38 @@ conf_int_NBG1 = 0.007105608219*100
 conf_int_NBM = 0.002582897147*100
 conf_int_NBM1 = 0.004455881530*100
 
-conf_int_KT = 0.003744561580*100
-conf_int_KT1 = 0.006646650907*100
+conf_int_KT = 0.005134885106*100
+conf_int_KT1 = 0.004289583451*100
 
 conf_int_KB = 0.009481148660*100
 conf_int_KB1 = 0.01017915464*100
 
 p17 = plt.bar(position_x[0],per2_NBG+per1_NBG,color = '#571B7E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_NBG)
+        width = width_bars,yerr = conf_int_NBG1)
 
 p18 = plt.bar(position_x[0],per2_NBG,color = '#7E587E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_NBG1)
+        width = width_bars,yerr = conf_int_NBG)
 
 
 p19 = plt.bar(position_x[1],per1_NBM+per2_NBM,color = '#571B7E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_NBM)
+        width = width_bars,yerr = conf_int_NBM1)
 
 p20 = plt.bar(position_x[1],per2_NBM,color = '#7E587E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_NBM1)
+        width = width_bars,yerr = conf_int_NBM)
 
 
 p21 = plt.bar(position_x[2],per1_KT+per2_KT,color = '#571B7E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_KT)
+        width = width_bars,yerr = conf_int_KT1)
 
 p22 = plt.bar(position_x[2],per2_KT,color = '#7E587E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_KT1)
+        width = width_bars,yerr = conf_int_KT)
 
 
 p23 = plt.bar(position_x[3],per1_KB+per2_KB,color = '#571B7E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_KB)
+        width = width_bars,yerr = conf_int_KB1)
 
 p24 = plt.bar(position_x[3],per2_KB,color = '#7E587E',edgecolor = 'white', 
-        width = width_bars,yerr = conf_int_KB1)
+        width = width_bars,yerr = conf_int_KB)
 
 
 plt.text(position_x[0]-0.2,80,per1_NBG,color='white')

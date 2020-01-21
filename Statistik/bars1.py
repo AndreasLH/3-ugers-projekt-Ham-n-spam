@@ -17,7 +17,7 @@ Eks1_KB = np.array([[1642,84],[192,350]])
 
 Eks2_NBG = np.array([[1658,68],[39,503]])
 Eks2_NBM = np.array([[1701,25],[7,535]])
-Eks2_KT = np.array([[1667,59],[17,525]])
+Eks2_KT = np.array([[1703,23],[34,508]])
 Eks2_KB = np.array([[1579,147],[126,416]])
 
 rc('font',weight = 'bold')
@@ -188,10 +188,10 @@ conf_int_NBM2 = 0.01747300770*100
 conf_int_NBM3 = 0.004455881530*100
 conf_int_NBM4 = 0.01782112770*100
 
-conf_int_KT1 = 0.003744561580*100
-conf_int_KT2 = 0.01735880567*100
-conf_int_KT3 = 0.006646650907*100
-conf_int_KT4 = 0.01816337427*100
+conf_int_KT1 = 0.005134885106*100
+conf_int_KT2 = 0.01715851450*100
+conf_int_KT3 = 0.004289583451*100
+conf_int_KT4 = 0.01780012467*100
 
 conf_int_KB1 = 0.009481148660*100
 conf_int_KB2 = 0.01592790485*100

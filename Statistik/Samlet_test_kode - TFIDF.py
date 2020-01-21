@@ -30,7 +30,7 @@ SD_test_size = 2268           # None, int or float
  
 TFIDF_max_features = None           # None or int 
 
-KNN_k = 3
+KNN_k = 2
 
 # Change which model to run (GaussNB = 0, MultinomiaNB = 1 KNN = 2)
 model = 2
@@ -39,7 +39,7 @@ model = 2
 iterations = 1
 
 # Train-split mode 
-split = 0     # (0 = 24/76 and 1 = 50/50)
+split = 1     # (0 = 24/76 and 1 = 50/50)
 
 ###############################################################################
 ###############################################################################
