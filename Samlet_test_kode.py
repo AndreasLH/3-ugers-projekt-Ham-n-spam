@@ -4,11 +4,6 @@ Program Description:
 A program created to be able to test and export results (data) of
 different ML-algortims under varying circumstances (changing parameters)
 Based on the following sources:
-    1. https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier (KNN)
-    2. https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB (Gauss NB)
-    3. https://scikit-learn.org/stable/modules/naive_bayes.html (Generelt om NB)
-    4. https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html (Multinomial NB)
-    5. https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html (TfidfVectorizer)
 """
 # Import general libraires
 import pandas as pd
@@ -40,28 +35,27 @@ filename = 'datasæt/processed_emails_v1.csv'
 #png (plot) file out name
 file_out = 'plot'
 #show plots or not
-show_plots = False
+show_plots = True
 
-n_samples = 40
+n_samples = 4
 train_size_vect = np.linspace(3, 2500, n_samples, dtype = 'int32')
 max_features_vect = np.linspace(100, 20_000, n_samples, dtype = 'int32')
 number_neighbors_vect = np.linspace(1, 40, n_samples, dtype = 'int32')
 #feature to plot
 model_param = train_size_vect
 
-
 # Change parameters (split_dataset, tfidfVectorizer and KNN)
 SD_random_state = 1            # None or int
 SD_shuffle = True
 SD_train_size = 1500                # None, int or float
-SD_test_size = 2500            # None, int or float
+SD_test_size = 2268            # None, int or float
 
 TFIDF_max_features = None       # None or int
 
-KNN_k = 3
+KNN_k = 2
 
 # Change which model to run (GaussNB = 0, MultinomialNB = 1, KNN = 2)
-model = 2
+model = 1
 # use TF-IDF = True or BOW = False
 tfidf_vec = False
 
@@ -94,7 +88,7 @@ def plot(model_param):
     plt.ylabel('Accuracy \%')
     #plt.text(1100, 0.72, f'95\% CI with a test size of {SD_test_size}')
     plt.ylim(0.7, 1)
-    plt.xlim(-2, SD_test_size)
+    plt.xlim(-2, SD_train_size)
     plt.grid(linestyle=':')
     plt.savefig(file_out, dpi = 600)
     plt.show()
@@ -362,4 +356,4 @@ else:
 
 if show_plots:
     plot(model_param)
-    confusion_matrix_visual(conf_matrix,model)
+

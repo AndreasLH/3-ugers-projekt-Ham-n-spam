@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-""" This code is meant to be used to clean a csv-dataset and make the necessary
-    normalization (punctuation, removing, stopwords etc.). Finally it will
-    export the clean dataset as a csv-file.
+""" This code is meant to be used to clean a csv-dataset and make the
+necessary normalization (punctuation, removing, stopwords etc.).
+Finally it will export the clean dataset as a csv-file.
 
     Link to dataset:
     https://www.kaggle.com/karthickveerakumar/spam-filter/version/1
@@ -28,9 +28,12 @@ def clean_data(csv_file):
     data['text'] = data['text'].str.strip(' re : ')
 
     # Load stop-words, define tokenizer and stemmer
-    stop_words = set(stopwords.words('english'))     # https://onlinecoursetutorials.com/nlp/how-to-remove-punctuation-in-python-nltk/
-    tokenizer = RegexpTokenizer(r'\w+')              # https://riptutorial.com/nltk/example/27285/filtering-out-stop-words
-    ps = PorterStemmer()                             # https://www.geeksforgeeks.org/python-stemming-words-with-nltk/
+#onlinecoursetutorials.com/nlp/how-to-remove-punctuation-in-python-nltk/
+# https://riptutorial.com/nltk/example/27285/filtering-out-stop-words
+# https://www.geeksforgeeks.org/python-stemming-words-with-nltk/
+    stop_words = set(stopwords.words('english'))
+    tokenizer = RegexpTokenizer(r'\w+')
+    ps = PorterStemmer()
 
     numb_mails = len(data.text)
 
@@ -39,7 +42,8 @@ def clean_data(csv_file):
         # make message lower case
         text = data.text[message]
 
-        # Substitute special tokens with describtive strings (before removed ny tokenizer)
+# Substitute special tokens with descriptive strings
+#(before removed ny tokenizer)
         text = text.replace('$', 'DOLLAR')
         text = text.replace('@', 'EMAILADRESS')
         text = text.replace('https', 'URL')
@@ -49,31 +53,24 @@ def clean_data(csv_file):
         text = text.replace('Subject', '')
         text = text.replace('cc', '')
 
-# =============================================================================
-#         text = text.replace('enron', '')
-#         text = text.replace('ect', '')
-#         text = text.replace(' com ', '')
-#         text = text.replace('kaminski', '')
-# =============================================================================
-
         # Make text lower case
         text = text.lower()
 
         # Tokenize + remove punctuation
         tokens1 = tokenizer.tokenize(text)
 
-# =============================================================================
-#       # Remove stop-words
-        tokens2 = [w for w in tokens1 if not w in stop_words] #https://riptutorial.com/nltk/example/27285/filtering-out-stop-words
-#
-# =============================================================================
+        # Remove stop-words
+        tokens2 = [w for w in tokens1 if not w in stop_words]
+        #https://riptutorial.com/nltk/example/27285/filtering-out-stop-words
+
         # Stemming tokens
         numb_tokens = len(tokens2)
 
         for token in range(numb_tokens):
             tokens2[token] = ps.stem(tokens2[token])
 
-        # Sustitute number (special token) with 'NUMBER' (numbers can be split by with space)
+        # Sustitute number (special token) with 'NUMBER'
+        #(numbers can be split by with space)
         for token in range(numb_tokens):
              try:
                  int(tokens2[token])
@@ -91,53 +88,12 @@ def clean_data(csv_file):
         # Collect tokens to string and assign to dataframe
         prepared_string = " ".join(tokens2)
 
-        data.at[message,'text'] = prepared_string  # https://stackoverflow.com/a/13842286/12428216
+        data.at[message,'text'] = prepared_string
+        # https://stackoverflow.com/a/13842286/12428216
 
     return data
 
-result = clean_data('emails.csv')
+result = clean_data('Datasæt\emails.csv')
 result.to_csv('processed_emails.csv', encoding='utf-8', index = False)
 
-
-
-
-
-
-
-
-# Debuggning-part (remove later)
-# =============================================================================
-# a = result.text[60]
-# print(a.find('vinc'))
-# print(len(a[2000,:]))
-# print(data.text[60][2000:])
-#
-# print(result.text)
-# =============================================================================
-
-
-# Information om scriptet (ift. flaws)
-# =============================================================================
-# Problems encountered so far:
-#     1. Ord bliver også splittet op ved f.eks. '-tegn (tror jeg) - dette
-#        betyder f.eks. at can't forsvinder
-#     2. Vores datasæt indeholder en hel masse i'er i stedet for l'er og omvendt.
-#        Det samme gælder ift. "q" og "g". Nedsætter formentlig vores algoritmers
-#        effektivitet.
-#     3. Bemærk at ikke hele mailadresse fjernes - kun @ udskriftes med string.
-#     4. Der antages at hver gang der står et nummer som f.eks. "555 55" efter
-#        at der er blevet fjeret punktumer og kommaer - så er der tale om et tal
-#        og ikke flere tal som i sætningen "Den koster kr. 55. 65 mennersker har..."
-# =============================================================================
-
-
-
-
-# Hvad med ". com "
-
-
-
-
-
-
-
+print(len(result.text))
