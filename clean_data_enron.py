@@ -93,7 +93,7 @@ def clean_data(csv_file):
 
     return data
 
-result = clean_data('Datasæt\emails.csv')
+result = clean_data('dataset\emails.csv')
 result.to_csv('processed_emails.csv', encoding='utf-8', index = False)
 
 print(len(result.text))
